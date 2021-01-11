@@ -1,0 +1,9 @@
+cython
+requests
+web3
+kafka-python
+aiohttp
+pymysql
+cryptography
+fire
+gql

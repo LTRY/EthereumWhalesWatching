@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+
+  sql:
+    image: mysql
+    container_name: sql
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_USER: pi2
+      MYSQL_PASSWORD: pwd
+      MYSQL_DATABASE: ETH
+    restart: unless-stopped
+
+  kafka-cluster:
+    image: landoop/fast-data-dev
+    container_name: kafka-cluster
+    environment:
+      ADV_PORT: "9092"
+      ADV_HOST: 127.0.0.1
+      RUNTESTS: 0                 # Disable Running tests so the cluster starts faster
+      FORWARDLOGS: 0              # Disable running 5 file source connectors that bring application logs into Kafka topics
+      SAMPLEDATA: 0               # Do not create sea_vessel_position_reports, nyc_yellow_taxi_trip_data, reddit_posts topics with sample Avro records.
+    ports:
+    - 2181:2181                 # Zookeeper
+    - 3030:3030                 # Landoop UI
+    - 8081-8083:8081-8083       # REST Proxy, Schema Registry, Kafka Connect ports
+    - 9581-9585:9581-9585       # JMX Ports
+    - 9092:9092                 # Kafka Broker
+    restart: unless-stopped
+
+  py-producer:
+    image: img-python
+    container_name: py-producer
+    command: python /pi2/producer.py --fromFlagBlock=10000000
+    depends_on:
+      - kafka-cluster
+    restart: unless-stopped
+
+  py-consumer:
+    image: img-python
+    container_name: py-consumer
+    command: python /pi2/consumer.py --logs True --waitGethSync False --txTriggeringValue 100000 --analyseTX False --recordSuspectTx False --onlyETH False --sql False
+    depends_on:
+      - kafka-cluster
+    restart: unless-stopped
