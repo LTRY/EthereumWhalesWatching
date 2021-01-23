@@ -67,7 +67,7 @@ python producer.py --local               # bool: if executed on host or on conta
 
 | ![Image](../img/schemaSoluce.png) |
 |:--:|
-| *Schema de la solution entièrement dockerisée * |
+| *Schema de la solution entièrement dockerisée* |
 
 
 ## II. Fonctionnement actuel de la solution
