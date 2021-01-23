@@ -2,9 +2,9 @@
 # 11 . Solution retenue
 
 *Au début, nous souhaitions développé une solution totalement dockerisée, c'est à dire faite de conteneur Docker qui intéragissent entre eux. 
-Au fur et à mesure du dévellopement, nous avons recontré de nombreuses difficultées quand à la dockerisation du logiciel. 
-Nous avons donc pensé notre rendu final de façon à ce qu'il soit possible de ne pas exécuté certains conteneurs, et donc 
-d'éxéctuer une partie du logiciel en local. De cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une simple 
+Au cours du développement, nous avons recontré de nombreuses difficultées quand à la dockerisation du logiciel. 
+Nous avons donc pensé notre rendu final de façon à ce qu'il soit possible d'exécuter ou non certains conteneurs, et donc 
+d'éxéctuer une partie du logiciel en local et l'autre partie sur la machine docker. Conceptualiser de cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une simple 
 facon de faire (éxécuter un `docker-compose.yml`), et la possibilité d'exécuté les composants séparemment.*
 
 
