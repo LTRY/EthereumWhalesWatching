@@ -4,22 +4,9 @@
 | *Ethereum Whales Watching* |
 
 
-## Présentation du projet
+## Présentation du sujet && Évolution du projet
 
-essayer de repondre a ca: Les gens ont de l'interet pour le bitcoin, puis ont découvert eth. les baleines sont passé de BTC a ETH, why? on sait pas trop mais ca correspond a la periode du developpement de la defi. OK
-
-- sujet
-- enjeux
-- etat de l'art
-
-inclure en bas des bas concerné les refs ci-dessous:
-- https://fc19.ifca.ai/preproceedings/130-preproceedings.pdf
-- http://cs229.stanford.edu/proj2017/final-reports/5244232.pdf
-- https://arxiv.org/pdf/2003.13399.pdf
-- https://bitinfocharts.com/comparison/ethereum-transactions.html
-- https://whale-alert.io
-
-## Évolution du projet
+#### ØØ . [ Présentation du sujet](gettingTechnical/-1_presentationSujet.md)
 #### 00 . [ Définition de la méthode à mettre en place](gettingTechnical/00_prequelle.md)
 #### 01 . [ Utilisation de Docker: Explication/Installation](gettingTechnical/01_installDocker.md)
 #### 02 . [ Télécharger la blockchain ethereum depuis Geth par Docker](gettingTechnical/02_dockerGeth.md)
@@ -44,17 +31,13 @@ inclure en bas des bas concerné les refs ci-dessous:
 
 ## TODO
 
-- 08 estimation du temps d'exécution
-
-- faire la partie présentation du sujet (comprendre la DeFi, la garder, pas la garder...)
+- faire la page présentation du sujet
 
 - maybe merge 00 & 01
 
-- finir 11 partial solutions + graphique
-- finir 12 diff et evolutions
+- Faire le readme.md du directory src
 
-
-- faire le Readme.md
+- faire le Readme.md du main
 
 
 
