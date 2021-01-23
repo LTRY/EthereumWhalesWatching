@@ -2,10 +2,9 @@
 
 
 # Prespective d'évolution
-- healthcheck conteneur
 - [wait-for-it conteneur](#prespective-dévolution-1)
-- redis
-- mongodb
+- [healthcheck conteneur](#rajouter-un-healtcheck-sur-les-conteneurs)
+- redis & mongodb
 
 
 # Difficultés
@@ -13,25 +12,122 @@
 - [docker image ethereum/client-go not working](#docker-image-ethereumclient-go-not-working)
 - [Pourquoi la synchronisation du noeud ne se terminera jamais avec notre solution](#pourquoi-la-synchronisation-ne-se-terminera-jamais-avec-notre-solution)
 - [graphql timeout](#graphql-timeout)
-- graphql requests not full
-- [Mysql brutal shutdown](#mysql-brutal-shutdown)
 - [docker too many files open in system](#docker-too-many-files-open-in-system)
+- [Mysql brutal shutdown](#mysql-brutal-shutdown)
 
 ---
 
 # Prespective d'évolution
 
-## Attendre qu'un conteuneur soit en etat de marche avant d'en lancer un autre.
+## Attendre qu'un conteneur soit en état de marche avant d'en lancer un autre.
 
-Dans la situation ou plusieurs conteuneurs sont dépendant des services des un et des autres, un command simple de docker-compose est `requires`. Avec cette argument, on indique que les conteneurs doivent communiquer entre eux mais en plus qu'ils doivent attendre que ceci ont bien démarrer avant d'être monter. Le problème c'est qu'un conteuneur peut être considéré comme UP et pourtant le service qu'il orchestre n'est pas encore disponible, pouvant causé un erreur sur le d'autre conteuneur. Pour pallier à ce problème on doit ra
+Dans la situation où un conteneur est dépendant du service mangé par un autre conteneur, on peut signifie au docker-compose l'arguement `requires` et faire de sorte à ce que ce conteneur attende le démarage d'un autre avant de se lancer. Avec cette argument, on indique que les conteneurs doivent communiquer entre eux et en plus qu'ils doivent attendre que ceci ont bien démarrer avant d'être monter. Le problème c'est qu'un conteuneur peut être considéré comme UP et pourtant le service qu'il orchestre n'est pas encore disponible, pouvant causé un erreur sur le d'autre conteuneur. Pour pallier à ce problème ou l'on peut implémenter une logique en interne dans le code des conteneurs ou alors on rajoute un script `bash` standardiser par docker: `wait-for-it.sh`
 
 - https://docs.docker.com/compose/startup-order/
 - https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y
 
+## Rajouter un healtcheck sur les conteneurs
+
+Le heatlthcheck est une bonne pratique a adopter lors de la conception d'architecture qui implique l'orchestration de conteneur. Un haeltcheck est un script a rajouter sur un conteneur et qui vérifie son bon état de santé. Effectivement, comme mentionné précédemment, il est possible d'avoir un conteneur UP mais que celui-ci n'est soit pas disposé à faire fonctionner le service qu'il embarqué. 
+
+## Remplacer la base de données actuelles utilisé par une de type redis ou noSQL
+
+La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puisque celle-ci implique de pensé à une sctuture simple mais fixe de notre solution. Il serait posssible de stocker les données de l'application selon un aspect moins relationnel afin d'obtenir une structure plus complexe. Enfin, étant donné qu'un gros défaut de notre aplication soit sa rapidité d'exécution, il serait intéressant d'étudier la possibilité d'implémenter une base de donnée de type clé:valeur à mémoire cache comme redis.   
 
 ---
 
 # Difficultés
+
+## Enrichir l'image ethereum/client-go de python
+
+L'image de du client geth est construite sur l'image de l'OS Alpine. C'est un systeme d'exploitation très léger qui a l'inconvéniant de n'inclure nativement que tres peu de package. Il est posssible d'installer python d'une seule commande sur l'OS, mais certaine librarie de installable par pip font appelle à d'autres pacakge directement installer sur l'os. De cette facon, les installations des packages pip ne marche pas et l'erreur est quelque peu complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
+
+Prblm lors de l'installation de web3 pour python
+```zsh
+pip install web3
+```
+
+erreur commune -> manque Cypthon.
+
+```zsh
+pip install cython
+```
+
+sur l'image docker alpine -> manque gcc
+https://stackoverflow.com/questions/19580758/gcc-fatal-error-stdio-h-no-such-file-or-directory#20150282
+
+```zsh
+apk add libc-dev
+```
+
+fatal error: Python.h: No such file or directory
+https://ethereum.stackexchange.com/questions/64315/web3-python-installation-failes-include-python-h-error-command-x86-64-linux
+https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory#21530768
+
+```zsh
+apk add python3-dev
+```
+
+https://web3py.readthedocs.io/en/stable/troubleshooting.html#setup-environment
+
+Consider installing rusty-rlp to improve pyrlp performance with a rust based backend
+```
+pip install rusty-rlp
+```
+
+##### Avant avoir ajouté python
+`Dockerfile`
+```Dockerfile
+# Build Geth in a stock Go builder container
+FROM golang:1.15-alpine as builder
+
+RUN apk add --no-cache make gcc musl-dev linux-headers git
+
+ADD . /go-ethereum
+RUN cd /go-ethereum && make geth
+
+# Pull Geth into a second stage deploy alpine container
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates
+COPY --from=builder /go-ethereum/build/bin/geth /usr/local/bin/
+
+EXPOSE 8545 8546 30303 30303/udp
+ENTRYPOINT ["geth"]
+```
+
+##### Apres avoir ajouté python
+`Dockerfile`
+```Dockerfile
+# Build Geth in a stock Go builder container
+FROM golang:1.15-alpine as builder
+
+RUN apk add --no-cache make gcc musl-dev linux-headers git
+
+ADD . /go-ethereum
+RUN cd /go-ethereum && make geth
+
+# Pull Geth into a second stage deploy alpine container
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates && \
+    apk add --no-cache gcc && \
+    apk add --no-cache python3-dev && \
+    apk add libc-dev && \
+    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
+    \
+    echo "**** install pip ****" && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --no-cache --upgrade pip setuptools wheel && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+    pip install Cython && pip install web3 && pip install tqdm 
+
+COPY --from=builder /go-ethereum/build/bin/geth /usr/local/bin/
+
+EXPOSE 8545 8546 30303 30303/udp
+ENTRYPOINT ["geth"]
+```
 
 ## docker image ethereum/client-go not working
 
@@ -54,7 +150,6 @@ services:
     restart: unless-stopped
 ```
 
-
 | ![Image](../img/gethDockerNotWorking.png) |
 |:--:|
 | *Shell output from docker-compose up* |
@@ -72,6 +167,68 @@ En effet, même avec une très bonne connection à internet, il n'est pas possib
 - The state trie in Ethereum contains hundreds of millions of nodes, most of which take the form of a single hash referencing up to 16 other hashes. This is a horrible way to store data on a disk, because there's almost no structure in it, just random numbers referencing even more random numbers. This makes any underlying database weep, as it cannot optimize storing and looking up the data in any meaningful way.
 
 *En conclusion, notre noeud ethereum restera coincée 60 à 100 blocs dernières la blockchain officielle. Cela ne nous pose pas plus de soucis que ca, cela voudra juste dire que nos analyses en temps réelles sur la blockchain auront un décalage de 10 minutes.*
+
+
+## graphql timeout
+graphql issue: https://medium.com/workflowgen/graphql-query-timeout-and-complexity-management-fab4d7315d8d
+
+
+- Avec un pad de 10000:
+    -  1er essai
+```
+ 69%|██████▉   | 69/100 [07:54<03:33,  6.88s/it]
+Traceback (most recent call last):
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/transport/aiohttp.py", line 198, in execute
+    async with self.session.post(self.url, ssl=self.ssl, **post_args) as resp:
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client.py", line 1117, in __aenter__
+    self._resp = await self._coro
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client.py", line 544, in _request
+    await resp.start(conn)
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client_reqrep.py", line 890, in start
+    message, payload = await self._protocol.read()  # type: ignore
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/streams.py", line 604, in read
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/tasks.py", line 487, in wait_for
+    fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 108, in <module>
+    main()
+  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 57, in main
+    _list = processGraphQlQuery(queryQL(block, block + PAD))
+  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 37, in queryQL
+    result = client.execute(query)
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 167, in execute
+    data: Dict[Any, Any] = loop.run_until_complete(
+  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 127, in execute_async
+    return await session.execute(document, *args, **kwargs)
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 408, in execute
+    result = await self._execute(document, *args, **kwargs)
+  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 396, in _execute
+    return await asyncio.wait_for(
+  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/tasks.py", line 489, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+```
+
+```shell script
+100%|██████████| 100/100 [07:47<00:00,  4.68s/it]
+
+total time exection: 467.5840919017792
+```
+- Beacoup d'erreur de Timeout pour des requetes trop grosse
+
+- total time exection: [467, 338, 300, 274, 256, 266, 237, 252, 255]
 
 
 ## docker too many files open in system
@@ -201,174 +358,13 @@ zsh: pipe failed: too many open files in system
 ```
 
 
-## graphql timeout
-graphql issue: https://medium.com/workflowgen/graphql-query-timeout-and-complexity-management-fab4d7315d8d
-
-
-- Avec un pad de 10000:
-    -  1er essai
-```
- 69%|██████▉   | 69/100 [07:54<03:33,  6.88s/it]
-Traceback (most recent call last):
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/transport/aiohttp.py", line 198, in execute
-    async with self.session.post(self.url, ssl=self.ssl, **post_args) as resp:
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client.py", line 1117, in __aenter__
-    self._resp = await self._coro
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client.py", line 544, in _request
-    await resp.start(conn)
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/client_reqrep.py", line 890, in start
-    message, payload = await self._protocol.read()  # type: ignore
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/aiohttp/streams.py", line 604, in read
-    await self._waiter
-asyncio.exceptions.CancelledError
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/tasks.py", line 487, in wait_for
-    fut.result()
-asyncio.exceptions.CancelledError
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 108, in <module>
-    main()
-  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 57, in main
-    _list = processGraphQlQuery(queryQL(block, block + PAD))
-  File "/Users/louis/PycharmProjects/eth_whales/script/main.py", line 37, in queryQL
-    result = client.execute(query)
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 167, in execute
-    data: Dict[Any, Any] = loop.run_until_complete(
-  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
-    return future.result()
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 127, in execute_async
-    return await session.execute(document, *args, **kwargs)
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 408, in execute
-    result = await self._execute(document, *args, **kwargs)
-  File "/Users/louis/PycharmProjects/eth_whales/venv/lib/python3.9/site-packages/gql/client.py", line 396, in _execute
-    return await asyncio.wait_for(
-  File "/usr/local/Cellar/python@3.9/3.9.0_1/Frameworks/Python.framework/Versions/3.9/lib/python3.9/asyncio/tasks.py", line 489, in wait_for
-    raise exceptions.TimeoutError() from exc
-asyncio.exceptions.TimeoutError
-```
-
-```shell script
-100%|██████████| 100/100 [07:47<00:00,  4.68s/it]
-
-total time exection: 467.5840919017792
-```
-- Beacoup d'erreur de Timeout pour des requetes trop grosse
-
-- total time exection: [467, 338, 300, 274, 256, 266, 237, 252, 255]
-
-
-### Enrichir l'image ethereum/client-go de python
-
-L'image de du client geth est construite sur l'image de l'OS Alpine. C'est un systeme d'exploitation très léger qui a l'inconvéniant de n'inclure nativement que tres peu de package. Il est posssible d'installer python d'une seule commande sur l'OS, mais certaine librarie de installable par pip font appelle à d'autres pacakge directement installer sur l'os. De cette facon, les installations des packages pip ne marche pas et l'erreur est quelque peu complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
-
-Prblm lors de l'installation de web3 pour python
-```zsh
-pip install web3
-```
-
-erreur commune -> manque Cypthon.
-
-```zsh
-pip install cython
-```
-
-sur l'image docker alpine -> manque gcc
-https://stackoverflow.com/questions/19580758/gcc-fatal-error-stdio-h-no-such-file-or-directory#20150282
-
-```zsh
-apk add libc-dev
-```
-
-fatal error: Python.h: No such file or directory
-https://ethereum.stackexchange.com/questions/64315/web3-python-installation-failes-include-python-h-error-command-x86-64-linux
-https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory#21530768
-
-```zsh
-apk add python3-dev
-```
-
-https://web3py.readthedocs.io/en/stable/troubleshooting.html#setup-environment
-
-Consider installing rusty-rlp to improve pyrlp performance with a rust based backend
-```
-pip install rusty-rlp
-```
-
-##### Avant avoir ajouté python
-`Dockerfile`
-```Dockerfile
-# Build Geth in a stock Go builder container
-FROM golang:1.15-alpine as builder
-
-RUN apk add --no-cache make gcc musl-dev linux-headers git
-
-ADD . /go-ethereum
-RUN cd /go-ethereum && make geth
-
-# Pull Geth into a second stage deploy alpine container
-FROM alpine:latest
-
-RUN apk add --no-cache ca-certificates
-COPY --from=builder /go-ethereum/build/bin/geth /usr/local/bin/
-
-EXPOSE 8545 8546 30303 30303/udp
-ENTRYPOINT ["geth"]
-```
-
-##### Apres avoir ajouté python
-`Dockerfile`
-```Dockerfile
-# Build Geth in a stock Go builder container
-FROM golang:1.15-alpine as builder
-
-RUN apk add --no-cache make gcc musl-dev linux-headers git
-
-ADD . /go-ethereum
-RUN cd /go-ethereum && make geth
-
-# Pull Geth into a second stage deploy alpine container
-FROM alpine:latest
-
-RUN apk add --no-cache ca-certificates && \
-    apk add --no-cache gcc && \
-    apk add --no-cache python3-dev && \
-    apk add libc-dev && \
-    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
-    \
-    echo "**** install pip ****" && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    pip install Cython && pip install web3 && pip install tqdm 
-
-COPY --from=builder /go-ethereum/build/bin/geth /usr/local/bin/
-
-EXPOSE 8545 8546 30303 30303/udp
-ENTRYPOINT ["geth"]
-```
-
 ### Mysql brutal shutdown
+Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser parfois des proclèmes. C'est le cas de mysql, lorsque cela arrive certain fichier deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
 Gracefully Stopping Docker Containers: https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
-
-### MYSQL_DATABASE does not create database
-https://github.com/docker-library/mariadb/issues/68
-I see you're bind-mounting a directory (/srv/librenms/db), is this the first time you run a container using this directory? Was the directory empty before running the container? (the image will only initialize the database if the data directory is empty; see this line in the entrypoint script;
-
-```
-mariadb/10.1/docker-entrypoint.sh
-Line 36 in cc686f5
- if [ ! -d "$DATADIR/mysql" ]; then 
-```
+Aure issues rencontré avec mysql:
+- https://github.com/docker-library/mysql/issues/371
+- https://github.com/docker-library/mariadb/issues/68
 - https://pythonspeed.com/articles/docker-connection-refused/
 
-### Mysql --innodb-use-native-aio=0
-J'avoue que je comprends pas bien pourquoi mais le container ne marche pas sans `--innodb-use-native-aio=0` **TODO**
-source: https://github.com/docker-library/mysql/issues/371
+
