@@ -63,14 +63,7 @@ Also https://stackoverflow.com/questions/49938672/web3-js-how-to-search-all-the-
 
 ---
 
-
-
-# Table of Contents
-1. [Methodes d'accès aux transactions](#methodes-d'acces-aux-transactions)
-2. [Geth To Mysql(local)](#methodes-d'acces-aux-transactions)
-3. [go-ethereum/client + amphétamine](#methodes-d'acces-aux-transactions)
-4. [le million](#methodes-d'acces-aux-transactions)
-
+SOURCE:
 - https://medium.com/@piyopiyo/how-to-get-erc20-token-balance-with-web3-js-206df52f2561
 - https://ethereum.stackexchange.com/questions/27809/how-to-list-all-ethereum-addresses-with-a-positive-balance
 - https://github.com/ethereum/go-ethereum/wiki/Management-APIs#debug_tracetransaction
