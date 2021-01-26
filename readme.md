@@ -4,7 +4,11 @@
 | *Ethereum Whales Watching* |
 
 
-## Présentation du sujet && Évolution du projet
+## Présentation du sujet 
+
+Ce répertoire est la vitrine de notre projet d'année qui à été réalisé dans le cadre du PI2 pour l'ESILV. Vous trouverez une partie qui raconte l'évolution du projet et une deuxième partie qui présente la solution, son code et le rendu. 
+
+## Évolution du projet
 
 #### ØØ . [ Présentation du sujet](gettingTechnical/-1_presentationSujet.md)
 #### 00 . [ Définition de la méthode à mettre en place](gettingTechnical/00_prequelle.md)
@@ -23,21 +27,11 @@
 
 ## Apercu de la solution finale
 
-
-![Image](img/schemaSoluce.png)
-
-
 ![Image](img/solution.gif)
 
-## TODO
+Voir le code de la solution ici [/scr](src)
 
-- faire la page présentation du sujet
 
-- maybe merge 00 & 01
-
-- Faire le readme.md du directory src
-
-- faire le Readme.md du main
 
 
 
