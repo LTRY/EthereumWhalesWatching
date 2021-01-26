@@ -29,7 +29,8 @@ Ce répertoire est la vitrine de notre projet d'année qui à été réalisé da
 
 ![Image](img/solution.gif)
 
-Voir le code de la solution ici [/scr](src)
+*Voir le code de la solution ici [/scr](src)*
+
 
 
 
