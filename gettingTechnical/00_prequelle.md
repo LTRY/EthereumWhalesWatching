@@ -14,11 +14,10 @@
 
 ## 0. Comment les addresses ethereum sont-elles créer?
 
-Les addresses sur ethereum peuvent être créer de 3 façons différentes:
+Les addresses sur ethereum peuvent être créer de 4 façons différentes:
 - a transaction is sent to this address
 - a message call is made to this address within some contract
 - a block mined where the address is specified as the coinbase (receiver of the block reward)
-- a SELFDESTRUCT is called with recipient being the address
 - New addresses are created also when a message call is made inside some contract. To list these calls every transaction has to be executed or transaction traces must be inspected
 
 
