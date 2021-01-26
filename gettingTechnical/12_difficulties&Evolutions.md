@@ -362,7 +362,7 @@ zsh: pipe failed: too many open files in system
 Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser parfois des proclèmes. C'est le cas de mysql, lorsque cela arrive certain fichier deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
 Gracefully Stopping Docker Containers: https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
-Aure issues rencontré avec mysql:
+Autres issues rencontrées avec Mysql:
 - https://github.com/docker-library/mysql/issues/371
 - https://github.com/docker-library/mariadb/issues/68
 - https://pythonspeed.com/articles/docker-connection-refused/
