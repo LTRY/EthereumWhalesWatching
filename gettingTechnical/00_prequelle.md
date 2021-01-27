@@ -56,7 +56,7 @@ https://ethereum.stackexchange.com/questions/15372/how-can-i-view-all-the-tokens
 
 D'ou le fait qu'il va falloir choisir un nombre fini de token pour pas que ca soit trop embetant.
 
-Also https://stackoverflow.com/questions/49938672/web3-js-how-to-search-all-the-contracts-ever-created-by-and-address
+Aussi https://stackoverflow.com/questions/49938672/web3-js-how-to-search-all-the-contracts-ever-created-by-and-address
 
 ---
 
