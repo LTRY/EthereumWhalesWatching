@@ -9,17 +9,15 @@
 
 ## 1. Why Docker?
 
-Docker est un outil qui peut empaqueter une application et ses dépendances dans un ou plusieurs conteneur isolé, qui pourrait être exécuté sur n'importe quel serveur, de n'importe qu'elle distribution.
-On parle de conteuneurisation, une machine virtuelle très légère qui s'appuie sur certaines parties de la machine hôte pour son fonctionnement.
-Ainsi, faire fooctionner notre solution avec Docker voudrait dire la rendre flexible et portative. La blockchain ethereum et les données associées peuvent être stockées sur un disque dur qui peut être
-branché, débranché et rebranché sur n'importe qu'elle machine, et la solution continuerait de fonctionner. C'est aussi une facon à faire de sorte que le projet puisse être repris par d'autres plus facilement. 
+Docker est un outil qui peut empaqueter une application et ses dépendances dans un ou plusieurs conteneurs isolés, qui pourrait être exécuté sur n'importe quel serveur, de n'importe quelle distribution.
+On parle de conteneurisation, une machine virtuelle très légère qui s'appuie sur certaines parties de la machine hôte pour son fonctionnement.
+Ainsi, faire fonctionner notre solution avec Docker voudrait dire la rendre flexible et portative. La blockchain ethereum et les données associées peuvent être stockées sur un disque dur qui peut être branché, débranché et rebranché sur n'importe quelle machine, et la solution continuerait de fonctionner. C'est aussi une facon à faire de sorte que le projet puisse être repris par d'autres plus facilement. 
 
 
 ## 2. Docker on Mac
 
-Le but ici n'est pas forcément de montrer comment installer docker sur sa machine locale, je note juste les commandes 
-qui m'ont permis d'obtenir le résultat qui fait fonctionner la solution du projet sur mon ordinateur. 
-Le guide suivit se trouve ici: https://medium.com/crowdbotics/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
+Le but ici n'est pas forcément de montrer comment installer docker sur sa machine locale, je note juste les commandes qui m'ont permis d'obtenir le résultat qui fait fonctionner la solution du projet sur mon ordinateur. 
+Le guide suivant se trouve ici: https://medium.com/crowdbotics/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
 
 ```shell script
 ~ docker-machine create --driver virtualbox default
