@@ -12,6 +12,8 @@ services:
       MYSQL_USER: pi2
       MYSQL_PASSWORD: pwd
       MYSQL_DATABASE: ETH
+    volumes:
+    - ./mysql/:/docker-entrypoint-initdb.d/
     restart: unless-stopped
 
   kafka-cluster:

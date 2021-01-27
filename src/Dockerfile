@@ -14,5 +14,7 @@ RUN apk add --no-cache gcc && \
     pip3 install --pre gql[aiohttp]
 
 WORKDIR /pi2
-COPY . /pi2
+COPY ./utils.py /pi2
+COPY ./producer.py /pi2
+COPY ./consumer.py /pi2
 CMD ["python"]
