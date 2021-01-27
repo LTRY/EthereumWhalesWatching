@@ -153,6 +153,18 @@ En effet suivre ceux qu'il se passe en direct ,notamment les transactions dans l
 Ethereum est un projet jeune donc on trouve peu de choses existantes. 
 Cependant deux projets sont  Whalealert, Etherscan.
 Whale alert qui affiche en tant direct les transactions de montants importants et EtherScan qui permet de voir le détail de toutes les transactions blockchain. 
+ 
+
+| ![Image](../img/Ether scan.png) |
+|:--:|
+| *la solution Etherscan :* |
+
+
+#### la solution WhaleAlert : 
+
+| ![Image](../img/whalealert.png) |
+|:--:|
+| *la solution WhaleAlert :* |
 
 
 source:
