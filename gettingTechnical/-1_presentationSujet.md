@@ -157,13 +157,13 @@ Whale alert qui affiche en tant direct les transactions de montants importants e
 
 | ![Image](../img/EtherScan.png) |
 |:--:|
-| *la solution Etherscan :* |
+| *la solution [Etherscan](https://etherscan.io)* |
 
-__________________________________________________________________________________________________________________________________________________________________
+
 
 | ![Image](../img/whalealert.png) |
 |:--:|
-| *la solution WhaleAlert :* |
+| *la solution [WhaleAlert](https://whale-alert.io)* |
 
 
 source:
@@ -172,3 +172,11 @@ source:
 - https://arxiv.org/pdf/2003.13399.pdf
 - https://bitinfocharts.com/comparison/ethereum-transactions.html
 - https://whale-alert.io
+- https://coinmarketcap.com/alexandria/article/what-is-decentralized-finance
+- https://medium.com/@jgm.orinoco/understanding-erc-20-token-contracts-a809a7310aa5
+- https://www.dappuniversity.com/articles/web3-js-intro
+- https://www.cbinsights.com/research/industries-disrupted-blockchain/
+- https://www.thecointribune.com/actualites/ethereum-eth-chute-ses-baleines-se-multiplient/
+- https://fr.cryptonews.com/news/ethereum-whales-almost-double-their-holdings-in-a-month-repo-7653.htm
+- https://medium.com/heartbankacademy/a-complete-mental-model-for-ethereum-dapp-development-5ce08598ed0a
+- https://cryptoast.fr/plupart-tokens-defi-sont-detenus-par-les-500-premieres-adresses/
