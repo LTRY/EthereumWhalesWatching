@@ -2,31 +2,28 @@
 # 06 . Scrapper le premier million de blocs
 
 ### Objectifs
-- scrapper les 1 000 000 premiers blocks de la blockchain ethereum
-- enregistrer les datas dans une table sql du disque dur
+- scrapper les 1 000 000 premiers blocks de la blockchain Ethereum
+- enregistrer les données dans une table SQL du disque dur
 
 
 ## 0. Avant de commencer
 
-Pourquoi s'affairer uniquement sur ce premier million de blocs? Premièrement parce que nous n'avons toujours pas réussit à 
-télécharger ethereum en entier. Oui c'est très long. Et deuxièment, parce que ce chiffre est représentatif de l'ordre 
-de grandeur de la blockchain ethereum. Si l'exécution de script sur la totalité de ces blocs se fait dans un laps de temps 
-résonnable, alors on peut s'en trop s'avancer que le scrapping de la blockchain entière sera faisable avec quelque prérequis en plus.
+Pourquoi s'affairer uniquement sur ce premier million de blocs? Premièrement parce que nous n'avons toujours pas réussit à télécharger Ethereum en entier. Oui c'est très long. Et deuxièment, parce que ce chiffre est représentatif de l'ordre de grandeur de la blockchain Ethereum. Si l'exécution de script sur la totalité de ces blocs se fait dans un laps de temps résonnable, alors on peut sans trop s'avancer que le scrapping de la blockchain entière sera faisable avec quelques prérequis en plus.
 
 `Etapes`:  
-- on monte un container geth capable d'acceuillir du script python. (On ajoute `maxpeers=0` pour que la mémoire vive ne serve uniquement aux requêtes)
-- on monte le container sql ou l'on stockera notre db et on créer la table ADDR
-- on importe le scrpit scrap.py dans ce container
+- on monte un conteneur Geth capable d'acceuillir du script python. (On ajoute `maxpeers=0` pour que la mémoire vive ne serve uniquement aux requêtes)
+- on monte le conteneur SQL ou l'on stockera notre base de données et on créer la table ADDR
+- on importe le script scrap.py dans ce conteneur
 - on l'execute et on attend un certain temps
-- on observe le résultat dans le container sql
+- on observe le résultat dans le conteneur SQL
 
-## 1. On monte un conteuneur GETH (avec l'image enrichit)
+## 1. On monte un conteneur GETH (avec l'image enrichie)
 ```shell script
 ~ docker run -ti --name eth2 -v /mnt/usb/.ethereum:/root -p 30303:30303 \
     -d eth_image:latest --cache=4096 --ipcpath=/IPC/geth.ipc --maxpeers=0
 ```
 
-## 2. On monte un conteuneur MYSQL et on créer la table ADDR
+## 2. On monte un conteneur MYSQL et on créer la table ADDR
 ```shell script
 ~ docker run -p 3306:3306 --name db2 -v ETH:/var/lib/mysql \
     -e MYSQL_ROOT_PASSWORD=pwd -d mysql --innodb-use-native-aio=0
@@ -51,25 +48,25 @@ Justification du choix des attributs:
     - Bigint est la plus grosse unité pour les nombres (10^18) et c'est insuffisant -> obliger de convertir en varchar
     - L'unité de mesure des valeurs des transactions est le Wgei qui correspond à 10^18 ETH.
     - Le nombre d'Ether n'est pas limité en nombre. Il y a aujourd'hui de l'ordre de 100 000 000 d'ETH en circulation.  
-    **--> On veut donc pouvoir insérer un nombre avec un maximum de 18+9=27 décimals, pour être large on prend 30**
+    **--> On veut donc pouvoir insérer un nombre avec un maximum de 18+9=27 décimales, pour être large on prend 30**
 
 
 ### Methode d'ajouts
 
 Comment rajouter des elements dans les tables:
-Si l'on prend l'addr comme PK, il faut se poser la question: quelle fonction utiliser:
+Si l'on prend l'adresse comme primary key (PK), il faut se poser la question, quelle fonction utiliser:
 - INSERT
 - REPLACE
 - INSERT...ON DUPLICATE KEY UPDATE
 - INSERT IGNORE
 
-Une fois qu'on est partie:
+Une fois qu'on est parti:
 - ligne par ligne
-- en une ligne qq addresses
-- en une ligne bcp d'adresses
+- en une ligne quelques adresses
+- en une ligne beaucoup d'adresses
 
 
-## 3. On copie scrap.py dans le conteuneur GETH
+## 3. On copie scrap.py dans le conteneur GETH
 `scrap.py`
 ```python
 from web3 import Web3
@@ -150,7 +147,7 @@ nb tx processed: 36843      from block 990000 to 1000000      98/98
 total time exection: 14384.370118618011
 ```
 
-## 5. Après 4h, on obtient la table sql ADDr ci-dessous
+## 5. Après 4h, on obtient la table SQL ADDr ci-dessous
 ```shell script
 mysql> select count(*) from addr;
 +----------+
@@ -204,7 +201,7 @@ mysql> select count(*) from addr where nonce > 1000;
 ```
 
 `CONCLUSION`
-- On a mit 4h à parcoucir les 1 000 000 premiers blocks
+- On a mis 4h à parcourir les 1 000 000 premiers blocks
 - On trouve à peine 30 000 adresses actives sur ces 1 000 0000 blocks
 - On trouve déja plus de 83 adresses avec plus de 1000 transactions effectuées
 
