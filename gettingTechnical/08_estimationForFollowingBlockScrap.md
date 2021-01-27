@@ -2,27 +2,26 @@
 # 08 . Estimer le temps d'execution total du script
 
 ### Objectifs
-- prendre des données des tables sql et en faire un graph
-- prouver la faisabilité et déterminer la méthode pour de prochain graph
+- prendre des données des tables SQL et en faire un graphe
+- prouver la faisabilité et déterminer la méthode pour de prochains graphes
 
-## Why?
+## Pourquoi?
 - Pour mieux compendre nos données, d'abord nous les visualisons
 
-## 0. Préembule
+## 0. Préambule
 
-Nous avons réfléchit dans un premier temps au graphique que nous aimerions voir et aux informations qui  nous servirons plus tard. 
+Nous avons réfléchi dans un premier temps aux graphiques que nous aimerions voir et aux informations qui nous servirons plus tard. 
 Nous définissons alors 3 tables sql:
-- une 1ere qui contient les informations relative aux blocs
-- une 2e qui tient l'historique des transactions (et une colonnes si la transaction est succeptible d'impliquer une baleine)
+- une 1ere qui contient les informations relatives aux blocs
+- une 2e qui tient l'historique des transactions (et une colonnes si la transaction est susceptible d'impliquer une baleine)
 - une 3e qui retient les adresses disponibles sur eth et si oui ou non nous la définissons comme une baleine
 
 `REMARQUE`:
-- Dans la 3e table `isWhale` n'est pas forcément `bool`, on peut aussi définir des types de holder (ex: `exchange`, `particulier`, `test`, `active`, `inactive`)
-- La 3e table peut potentielement contenir toutes les addresses possible, meme si on estime qu'il y en a plusieus dixaine de millions, ca reste un nombre de lignes correct pour du sql, 
-avec des requetes ~ 10s
-- La 1 permet de linker à 2 le prix auquel à pu s'échanger l'ETH
-- La 2 NE DOIT PAS acceuillir toutes les txs, on en compte plusieurs milliard. Les récupérer serait tres douleureux à traiter, et
-on va essayer de ne pas avoir des bases de données trop lourde.  
+- Dans la 3e table `isWhale` n'est pas forcément `bool`(binaire), on peut aussi définir des types de holder (ex: `exchange`, `particulier`, `test`, `active`, `inactive`)
+- La 3e table peut potentiellement contenir toutes les adresses possibles, meme si on estime qu'il y en a plusieurs dizaines de millions, cela reste un nombre de lignes correct pour du SQL, 
+avec des requêtes ~ 10s
+- La table 1 permet de faire le lien avec la 2 qui correpond au prix auquel a pu s'échanger l'ETH
+- La 2 NE DOIT PAS acceuillir toutes les transactions, on en compte plusieurs milliards. Les récupérer serait très douleureux à traiter, et on va essayer de ne pas avoir des bases de données trop lourde.  
 
 ```
 TABLE block_info
@@ -41,7 +40,7 @@ TABLE holders
 +------+---------+-------+
 ```
 
-On va construire un premier graph qui rend compte du nombre de transaction par bloc, du block 0 à 11327362 ~ 25/11/2020
+On va construire un premier graphe qui rend compte du nombre de transactions par bloc, du block 0 à 11327362 ~ 25/11/2020
 
 
 ### 1. Créer la table qui acceuillera les données
@@ -61,7 +60,7 @@ mysql> describe block_info;
 ```
 
 ### 2. ETH To SQL
-*Remplir la table sql précédemment créer avec les infos de la blockchain ETH*  
+*Remplir la table SQL précédemment créée avec les infos de la blockchain ETH*  
 `blockCount.py`
 ````python
 from gql import gql, Client
@@ -169,7 +168,7 @@ mysql> select count(*) from block_info;
 +----------+
 1 row in set (0,88 sec)
 ```
-- GraphQL ne récupère pas toutes les infos puique on récupère 11327001 bloc dans la table sql mais on en a 11327362 sur notre noeud. Notre script avec Graphql n'est pas 100% efficace puiqu'il oublie 361 blocs. 
+- GraphQL ne récupère pas toutes les infos puisqu'on récupère 11327001 bloc dans la table SQL mais on en a 11 327 362 sur notre noeud. Notre script avec Graphql n'est pas 100%     efficace puiqu'il oublie 361 blocs. 
 - De plus, l'exécution est un peu longue: 10429s ~ 2h 53 min49s
 
 ### 3. SQL To matplotlib.pyplot
@@ -202,4 +201,4 @@ plt.show()
 | *Évolution du nombre de transaction dans un block de 0 à * 11327362 ~ bloc du 25/11/2020* |
 
 
-### TODO estimation du temps d'exécution
+### A faire : estimation du temps d'exécution
