@@ -21,14 +21,14 @@ mysql> SELECT SUM(transactionCount) FROM block_info;
 +-----------------------+
 1 row in set (3,70 sec)
 ```
-on a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste résonnable de récupérer la totalité de 
+On a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste raisonable de récupérer la totalité de 
 ces informations dans une table sql. Pour rappel, le but de transférer les données de la blockchain à une base de donnée SQL, 
-en perdant le moins d'informations possible, SQL étant bien plus rapide pour effectuer des opérations sur nos données. 
-Cependant, nous n'inserons pas les transactions d'une valeur de "0x0"...
+en perdant le moins d'informations possibles, SQL étant bien plus rapide pour effectuer des opérations sur nos données. 
+Cependant, nous n'insérons pas les transactions d'une valeur de "0x0"...
 
 `Etapes`:  
-- Faire tourner notre client Geth en locale
-- Installer mysql en local avec homebrew et on creer la table `tx`
+- Faire tourner notre client Geth en local
+- Installer mysql en local avec homebrew et on créé la table `tx`
 - Executer le script `tableTX.py` en local
 - Observer le résultat dans la table sql
 
@@ -172,7 +172,7 @@ mysql> select * from tx order by tx_id DESC LIMIT 10;
 
 --- 
 # Difficulté
-*Arrivé au bloc 7598900, la table sql totalise pas moins de 32Go de données. C'est malheuresement trop pour etre 
+*Arrivé au bloc 7598900, la table sql totalise pas moins de 32Go de données. C'est malheureusement trop pour être 
 stocké sur un ordinateur. Nous décidons donc de basculer notre mySQL sur le disque dur.*
 
 ### 1. Determiner la taille de la table SQL
@@ -215,8 +215,8 @@ mysql -u username -p -D dbname < tableName.sql
 ```
 
 On tire les conclusions suivantes:
-- 32 Go de donnée, c'est beaucoup trop, les requetes sont tres longues, de même pour l'importation/exportation des données. Il faut revoir nos critères d'insertions 
-- Étant donné la complexité que représente l'utilisation de Mysql en locale, il faut mieux rester sur du mysql avec Docker.
+- 32 Go de données, c'est beaucoup trop, les requêtes sont très longues, de même pour l'importation/exportation des données. Il faut revoir nos critères d'insertions 
+- Étant donné la complexité que représente l'utilisation de Mysql en locale, il vaut mieux rester sur du mysql avec Docker.
 
 `SOURCE`:
 - https://chartio.com/resources/tutorials/how-to-get-the-size-of-a-table-in-mysql/
