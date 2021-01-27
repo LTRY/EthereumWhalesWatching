@@ -1,34 +1,34 @@
 
-# [Trouver un titre]
+# Les Adresses Ethereum 
 
 
 
 # Table of Contents
-0. [Comment les addresses sur ethereum sont-elles créées](#methodes-d'acces-aux-transactions)
-1. [Comment lister toutes les addresses sur ethereum](#methodes-d'acces-aux-transactions)
-2. [Comment lister tous les détenteurs d'un token ERC](#methodes-d'acces-aux-transactions)
-3. [Comment lister tous les tokens et leurs détenteurs associés](#methodes-d'acces-aux-transactions)
+1. [Comment les addresses sur ethereum sont-elles créées](#methodes-d'acces-aux-transactions)
+2. [Comment lister toutes les addresses sur ethereum](#methodes-d'acces-aux-transactions)
+3. [Comment lister tous les détenteurs d'un token ERC](#methodes-d'acces-aux-transactions)
+4. [Comment lister tous les tokens et leurs détenteurs associés](#methodes-d'acces-aux-transactions)
 
 
 ---
 
-## 0. Comment les addresses ethereum sont-elles créer?
+## 1. Comment les addresses ethereum sont-elles créer?
 
 Les addresses sur ethereum peuvent être créer de 4 façons différentes:
-- a transaction is sent to this address
-- a message call is made to this address within some contract
-- a block mined where the address is specified as the coinbase (receiver of the block reward)
-- New addresses are created also when a message call is made inside some contract. To list these calls every transaction has to be executed or transaction traces must be inspected
+- une transaction est envoyée à cette adresse
+- un appel de message est effectué à cette adresse dans le cadre d'un contrat
+- un bloc miné où l'adresse est spécifiée comme base de monnaie (destinataire de la récompense en bloc)
+- de nouvelles adresses sont également créées lorsqu'un appel de message est effectué dans le cadre d'un contrat. Pour répertorier ces appels, chaque transaction doit être exécutée ou les traces de transaction doivent être inspectées
 
 
-## 1. How to list ALL Ethereum addresses
+## 1. Comment lister les adresses ethereum
 
-1. get all the blocks
-2. from each block get all the transactions et regarder le `from` et le `to`
-3. filter all the transactions with a value > 0
-4. record the list of all the to addresses
-5. filter out duplicates
-6. filter out addresses with balance 0
+1. obtenir tous les blocs
+2. de chaque bloc obtenir toutes les transactions et regarder le "from" et le "to"
+3. filtrer toutes les transactions ayant une valeur > 0
+4. enregistrer la liste de toutes les adresses
+5. filtrer les doublons
+6. filtrer les adresses avec un solde de 0
 
 
 `Note`:
@@ -44,11 +44,11 @@ https://ethereum.stackexchange.com/questions/36274/a-list-of-token-holders-at-a-
 
 ## Is it possible to get a list of token holders for a given ERC20 token from within another solidity contract?  
 
-It is not possible to get a list of ERC20 token holders directly from a contract.  "Balances" are stored in a mapping in most ERC20 contracts but as we cannot get a list of keys for a mapping in Solidity, therefore it is impossible without external intervention.  
-ERC-20 tokens do not maintain an iterable list of current token holders, the used mapping type allows you only to check for a known address - balance. To get a list of all token holders, you need to process this offline and build it yourself from blockchain data.
-It is not possible to accomplish what you desire using only the blockchain, but using a combination of on-chain/off-chain logic can achieve your goals.  
+Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockés dans une cartographie dans la plupart des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
+Les jetons ERC-20 ne maintiennent pas une liste itérable des détenteurs de jetons actuels, le type de mappage utilisé vous permet uniquement de vérifier une adresse connue. Pour obtenir une liste de tous les détenteurs de jetons, vous devez la traiter hors ligne et la construire vous-même à partir des données de la chaîne de blocs. Il n'est pas possible de réaliser ce que vous souhaitez en utilisant uniquement la chaîne de blocs, mais une combinaison de logique on-chain/off-chain peut vous permettre d'atteindre vos objectifs.  
 
-Seems like you need to walk through all Transfer events for a specific ERC-20 token. That sounds very resource-intensive. But it seems to be the only way. Watch this exmaple: https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
+Il semble que vous deviez passer en revue tous les événements de transfert pour un jeton ERC-20 spécifique. Cela semble très gourmand en ressources. Mais il semble que ce soit le seul moyen. Regardez cet exemple :
+https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
 
 ---
 
