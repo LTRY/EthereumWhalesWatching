@@ -18,7 +18,7 @@ Reprendre des concepts de la finance traditionnelles, emprunt, assurance, la bou
 Le succès d'un projet de la DeFi est souvent évalué par sa Total Value Locked (TVL) - Valeur Totale Verrouillée - en $.
 Par ailleurs, cette métrique est considérée comme la capitalisation boursière de l'ensemble de l'écosystème de la DeFi.
 
-| ![Image](img/defi_pulse_13:10:2020.png) |
+| ![Image](../img/defi_pulse_13:10:2020.png) |
 |:--:|
 | *Screenshot du site [DeFi Pulse](https://defipulse.com) le 13/10/2020* |
 
