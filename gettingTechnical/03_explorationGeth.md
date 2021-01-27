@@ -1,11 +1,11 @@
 
-# 03. Explorer les différentes méthodes qui permettent d'interogger la blockchain
+# 03. Exploration des différentes méthodes qui permettent d'interroger la blockchain
 
 ### Objectifs
 
 - determiner la plus rapide méthode d'accès aux transactions proposé par geth
 
-## 0. Où nous en sommes
+## 1. Où nous en sommes
 
 Aujourd'hui nous avons de disponible un container geth qui tourne avec quelques 3 000 000 de blocks téléchargés. 
 Soit un peu moins du tiers d'ethereum. C'est amplement suffisant pour commencer à faire des tests d'exécution de scripts
@@ -18,7 +18,7 @@ docker run -ti --name eth2 -v /Volumes/ETH/.ethereum:/root \
   --http --http.api eth,web3,personal --http.addr="0.0.0.0" --maxpeers=0
 ```
 
-La première curiositée qui nous est apparut lors de notre apprentissage de la blockchain ethereum est l'énorme ressemblance
+La première curiosité qui nous est apparut lors de notre apprentissage de la blockchain ethereum est l'énorme ressemblance
 de 2 fonctions qui retournent à priori la même chose. En effet, la console javascript du client ethereum geth propose 2 
 méthodes différentes pour accéder aux transactions. Elles ne fonctionnent cependant pas de la même facon. 
 L'une cherche les transactions et l'autre cherche l'indice des transactions dans un bloc. L'intuition qui s'en dégage 
@@ -27,7 +27,7 @@ est que la vitesse d'exécution de ces 2 méthodes est différentes. Voici les 2
 - eth.getTransaction
 - eth.getTransactionFromBlock
 
-## 1. Comparaison des méthodes
+## 2. Comparaison des méthodes
 
 Le but de cette petite étude est de déterminer si l'une est effectivement plus rapide que l'autre en vue du scappring
 de la blockchian Ethereum.  
