@@ -10,7 +10,7 @@ Ce répertoire est la vitrine de notre projet d'année qui à été réalisé da
 
 ## Évolution du projet
 
-#### -01 . [ Présentation du sujet](gettingTechnical/-1_presentationSujet.md)
+#### -1 . [ Présentation du sujet](gettingTechnical/-1_presentationSujet.md)
 #### 00 . [ Définition de la méthode à mettre en place](gettingTechnical/00_prequelle.md)
 #### 01 . [ Utilisation de Docker: Explication/Installation](gettingTechnical/01_installDocker.md)
 #### 02 . [ Télécharger la blockchain ethereum depuis Geth par Docker](gettingTechnical/02_dockerGeth.md)
