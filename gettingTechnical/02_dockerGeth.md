@@ -4,11 +4,11 @@
 
 - Expérimenter docker et geth
 - Vérifier le téléchargement effectif de la blockchain
-- Validé l'utilisation de docker pour notre projet
+- Valider l'utilisation de docker pour notre projet
 
 ---
 
-*Le but ici est pas noter les commandes qui nous serons utilise à l'expoloitation de Geth par Docker*
+*Le but ici est de noter les commandes qui nous seront utiles à l'exploitation de Geth par Docker*
 
 ---
 
@@ -35,9 +35,9 @@ docker run -ti -d \
 noeud et à ses différentes fonction via HTTP.
 - `--maxpeers 0` stop la synchronisation si il est spécifié
 
-`NOTE`: Il y a plusieurs désavantages à utiliser un HDD pour stocker la blockchain. Ici, nous spécifions le chemin du fichier IPC à l'intérieur du conteuneur de sorte à ne qu'il se retrouve pas sur le disque dur, car cela entraine une erreur. 
+`NOTE`: Il y a plusieurs désavantages à utiliser un HDD pour stocker la blockchain. Ici, nous spécifions le chemin du fichier IPC à l'intérieur du conteneur de sorte à ce qu'il ne se retrouve pas sur le disque dur, car cela entraine une erreur. 
 
-## Liste de commandes associé
+## Liste de commandes associées
 
 Une fois que l'on a monté un container geth, nous pouvons effectuer quelques actions dessus
 
@@ -75,7 +75,7 @@ docker exec -ti recursing_allen geth attach ipc:/IPC/geth.ipc \
 
 
 `CONCLUSION`:
-*Cette facon de telecharger la blockchain semble fonctionner. Prochainement, nous .... Il semblerait que la synchronisation d'un noeud est un des plus gros challenge sur Ethereum*
+*Cette facon de telecharger la blockchain semble fonctionner. Prochainement, nous intéresserons aux méthodes qui permettent de récupérer les transactions de la blockchain. A noter que nous n'avons pas encore téléchargé la blockchain en entier, or il semblerait que la synchronisation d'un noeud soit un des plus gros challenge sur Ethereum et que cela constituera une prochaine problématique.*
 
 
 `SOURCE`:
