@@ -9,23 +9,23 @@ La méthode la plus rapide pour ce connecter à un noeud en locale est IPC. Mais
 son lot de difficultés.  
 Quoi qu'il arrive, nous aurions eu tôt ou tard à créer un conteuneur pour exécuter nos scrips python. Pour rappel, un des 
 objectifs de ce projet est de le rendre le plus portable possible.  
-Aujourd'hui, on a fait le choix de garder une structure à 2 container (geth enrichit & mysql)  
+Aujourd'hui, on a fait le choix de garder une structure à 2 containers (geth enrichit & mysql)  
 
 
-## I. Pourquoi est-il préferrable de se connecter via IPC?
+## 1. Pourquoi est-il préferrable de se connecter via IPC?
 
 Il existe 3 façons principales pour se connecter à un noeud Ethereum
 
-- IPC (uses local filesystem: fastest and most secure)
-- Websockets (works remotely, faster than HTTP)
-- HTTP (more nodes support it)
+- IPC (utilise un système de fichiers local : le plus rapide et le plus sûr)
+- Websockets (fonctionne à distance, plus rapidement que le HTTP)
+- HTTP (plus de nœuds le soutiennent)
 
 source: https://web3py.readthedocs.io/en/stable/providers.html
 
 
-## II. Comment dialoguer avec la blockchain via IPC?
+## 2. Comment dialoguer avec la blockchain via IPC?
 
-Tout d'abord, un fichier geth.ipc est généré lors du boot du noeud càd lors de l'exécution de la commande *geth*.  
+Tout d'abord, un fichier geth.ipc est généré lors du boot du noeud c'est à dire lors de l'exécution de la commande *geth*.  
 
 On peut alors accéder au noeud par:
 - la console javascript:
@@ -49,7 +49,7 @@ Et le container qui execute le client geth se lance de cette façon:
   -d eth_image:latest --maxpeers=0
 ```
 \
-Le conteuneur crash on en regardant dans les logs, on voit cette erreure.
+Le conteuneur crash on en regardant dans les logs, on voit cette erreur.
 ```shell script
 ~ docker logs -f eth2
   ...
@@ -58,21 +58,21 @@ Le conteuneur crash on en regardant dans les logs, on voit cette erreure.
 ```
 
 Il semblerait que geth n'apprécie pas le fait de sortir le fichier geth.ipc du container (tout du moins de l'écrire sur le disque dur). 
-Afin de palier à ce problème, on ajoute le paramètre `--ipcpath=/IPC/geth.ipc` à la commande geth. On obient alors:
+Afin de palier ce problème, on ajoute le paramètre `--ipcpath=/IPC/geth.ipc` à la commande geth. On obient alors:
 ```shell script
 docker run -ti --name eth2 -v /mnt/usb/.ethereum:/root \
   -p 127.0.0.1:8545:8545 -p 30303:30303 \
   -d eth_image:latest --ipcpath=/IPC/geth.ipc --maxpeers=0
 ```
 
-De cette façon, le fichier ipc reste dans le container et on garde les chaindatas de la blockchain sur notre disque dur **mais on perd donc l'accès au noeud depuis notre machine MacOs par l'intermédiare IPC.**  
+De cette façon, le fichier IPC reste dans le container et on garde les chaindatas de la blockchain sur notre disque dur **mais on perd donc l'accès au noeud depuis notre machine MacOs par l'intermédiare IPC.**  
 En effet, il n'est pas possible de faire directement référence à un fichier inscrit dans un container depuis notre machine locale.
 Ce que cela implique, c'est que l'exécution de script dialogeant par IPC, python ou non, **devra s'exécuter à l'intérieur du container** 
 qui fait tourner le noeud geth.  
 Cela me pose plusieurs intérogation, à savoir:
 - N'est-t'il réellement pas possible de dialoguer par IPC depuis l'extérieur du container, la machine host ou bien même un autre container
 - Faut-il créer un container avec un image python
-- enrichir l'image go-ethereum/ethereum est-elle une bonne idée, que cela pourait-il engendrer de néfaste?
+- enrichir l'image go-ethereum/ethereum est-il une bonne idée, cela pourait-il engendrer des problêmes?
 
 `NOTE`: Il est possible de rajouter l'argument -v `~/local/machine/geth.ipc:/IPC/geth.ipc` dans la commande docker afin de 
 linker le fichier .ipc à notre systeme de fichier locale. Effectivement, de cette façon, on peut faire appelle au fichier. 
@@ -84,13 +84,13 @@ web3 = Web3(Web3.IPCProvider("/IPC/geth.ipc"))
 print(web3.isConnected()) # FALSE
 ```
 
-On rentiendra donc la solution d'exécuter nos scripts python directement dans le container.
+On retiendra donc la solution d'exécuter nos scripts python directement dans le container.
 
 
-## III. Integration python & web3 & pymysql dans l'image geth
+## 3. Integration python & web3 & pymysql dans l'image geth
 
 Maintenant que nous avons décidé d'exécuter nos scripts python directement dans le même container que geth, 
-nous devons enrichir la sous image `apline` de l'image `go-ethereum/client`. Ce n'est pas une suprise qu'alpine soit djà présent, 
+nous devons enrichir la sous-image `apline` de l'image `go-ethereum/client`. Ce n'est pas une suprise qu'alpine soit déjà présent, 
 et cela nous facilite quelque peu la tâche, au sens ou cela aurait pu apporter un lot de difficultés en plus. 
 Alpine est un *very lightweight Os*, ce qui veut dire que très peu de chose fonctionne dessus car peu de chose y
 sont installé. Python n'en fait pas partie et l'outil pour installer ses dépendences non plus.
@@ -148,7 +148,7 @@ RUN apk add --no-cache python3-dev && \
 
 Et installer les dépendences pymysql & web3 revient à ajouter ces lignes. A préciser que pip installe de lui même les
 dépendences python dont ce dernier à besoin, mais pas les packages de l'OS. Lors de l'éxécution des premiers `pip install ...` 
-nous rencontrions des erreurs d'éxécutions, il suffisait de debugger dans l'ordre des erreurs de d'installer donc de nouvelles libraries pour Alpine. 
+nous avons rencontré des erreurs d'éxécutions, il suffisait de debugger dans l'ordre des erreurs de d'installer donc de nouvelles libraries pour Alpine. 
 ```Dockerfile
 RUN apk add --no-cache gcc && \
     apk add libc-dev openssl-dev libffi-dev &&\
@@ -194,7 +194,7 @@ ENTRYPOINT ["geth"]
 
 ---
 
-On se position dans le répertoire qui contient ce fichier et on éxécute la commande suivante:
+On se positionne dans le répertoire qui contient ce fichier et on éxécute la commande suivante:
 ```shell script
 ~ docker build -t eth_image .
 ```
