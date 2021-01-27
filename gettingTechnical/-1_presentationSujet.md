@@ -1,5 +1,5 @@
 
-essayer de repondre a ca: Les gens ont de l'interet pour le bitcoin, puis ont découvert eth. les baleines sont passé de BTC a ETH, why? on sait pas trop mais ca correspond a la periode du developpement de la defi.
+# Gros tu parles super fort en plus
 
 ## Introduction Ethereum
 
