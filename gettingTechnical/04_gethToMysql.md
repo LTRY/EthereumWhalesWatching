@@ -1,11 +1,11 @@
 
-# 04 . Retranscrire les transactions de notre noeud Geth dans un conteuneur mysql en passant par python en local
+# 04 . Retranscrire les transactions de notre noeud Geth dans un conteneur mysql en passant par python en local
 
 
 ### Objectifs
-- creer un container mysql
-- parcourir qq blocs depuis la machine local
-- enregistrer nos informations selon un schema à déterminer
+- créer un conteneur mysql
+- parcourir quelques blocs depuis la machine local
+- enregistrer nos informations selon un schéma à déterminer
 
 
 ## 0. Jusqu'ici
@@ -21,8 +21,8 @@ docker run -ti -d \
 
 ## I. PARTIE MYSQL
 
-On crée un container Mysql avec les arguments de base requis. La base de donnée est stocke sur le dique dur de l'ordinateur. 
-On vera comment stocker la base de données sur notre dique externe plus tard
+On crée un conteneur Mysql avec les arguments de base requis. La base de données est stockée sur le disque dur de l'ordinateur. 
+On verra comment stocker la base de données sur notre disque externe plus tard !
 
 ```shell script
 ~ docker run -p 3306:3306 --name db -e MYSQL_ROOT_PASSWORD=pwd -d mysql
@@ -31,7 +31,7 @@ On vera comment stocker la base de données sur notre dique externe plus tard
 
 ---
 
-Now go in sql console
+Maintenant go sur la console sql
 ```shell script
 docker exec -ti db mysql -p
 
@@ -54,18 +54,18 @@ mysql> DESCRIBE addr;
 2 rows in set (0.01 sec)
 ```
 
-La base de données est prête à acceuillir de la donnée
+La base de données est prête à acceuillir de la donnée. 
 
 ## II. PARTIE PYTHON
 
-On travail avec python depuis notre ordinateur, on verra plus tard comme executer du script python depuis un container docker.
+On travaille avec python depuis notre ordinateur, on verra plus tard comment executer du script python depuis un conteneur docker.
 
 - On commence par installer la librairie `pymysql`
 ```shell script
 pip install pymysql
 ```
 
-- Ensuite on écrit les fonctions qui nous permettrons d'interagir avec la db sql. (De python local à docker sql)
+- Ensuite on écrit les fonctions qui nous permettront d'intéragir avec la base de données sql. (De python local à docker sql)
 `mysql.py`
 ```python
 import pymysql
@@ -95,7 +95,7 @@ def show():
     conn.close()
 ```
 
-- Ensuite on recuperer les addresses des blocks 3865000 à 3865010 et les stocker dans la db grace a nos focntions précédemments créer
+- Ensuite on recupère les addresses des blocks 3 865 000 à 3 865 010 et les stocke dans la base de données grace à nos fonctions précédemment créées. 
 `GethToMysql.py`
 ```python
 from web3 import Web3
@@ -152,9 +152,9 @@ mysql> select * from addr limit 10;
 10 rows in set (0.01 sec)
 ```
 
-### What can we learn from that:
-- On a essayé de mettre la db directment notre dique dur externe et cela apporte son lot de difficulté. 
-De plus, c'est très compliqué de faire de sorte à ce que la db soit accessible depuis une autre machine (windows pour sûr). 
-A essayer avec un autre mac. -> Du coup avec un mac reboot, ca ne fonctionne pas non plus (chose marrante: in select * from user, on retrouve 2 root...)
-- Cette facon apporte beacoup de doublon d'addresse. Prochainement travailler avec les addresses comme des PRIMARY KEY?
-- Tester la rapidité du process si on dans la db toutes les addressses, tous les blocks, tous les qq blocs **TODO**
+### Nos conclusions:
+- On a essayé de mettre la base de données directement sur notre disque dur externe et cela apporte son lot de difficultés. 
+  De plus, c'est très compliqué de faire en sorte à ce que la base de données soit accessible depuis une autre machine (windows pour sûr). 
+  A essayer avec un autre mac. Du coup avec un mac reboot, ca ne fonctionne pas non plus (chose marrante: in select * from user, on retrouve 2 roots)
+- Cette façon apporte beaucoup de doublons d'adresses. Prochainement travailler avec les adresses comme des PRIMARY KEY?
+- Tester la rapidité du processus, si on entre dans la base de données toutes les adresses, tous les blocks, tous les qq blocs **TODO**
