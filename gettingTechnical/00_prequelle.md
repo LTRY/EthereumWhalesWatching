@@ -10,7 +10,7 @@
 
 ---
 
-## 1. Comment les addresses ethereum sont-elles créees?
+## 1. Comment les addresses ethereum sont-elles créées?
 
 Les addresses sur ethereum peuvent être créer de 4 façons différentes:
 - une transaction est envoyée à cette adresse
