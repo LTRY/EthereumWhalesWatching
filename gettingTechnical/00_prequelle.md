@@ -2,17 +2,15 @@
 # Les Adresses Ethereum 
 
 
-
 # Table of Contents
 1. [Comment les addresses sur ethereum sont-elles créées](#methodes-d'acces-aux-transactions)
 2. [Comment lister toutes les addresses sur ethereum](#methodes-d'acces-aux-transactions)
 3. [Comment lister tous les détenteurs d'un token ERC](#methodes-d'acces-aux-transactions)
 4. [Comment lister tous les tokens et leurs détenteurs associés](#methodes-d'acces-aux-transactions)
 
-
 ---
 
-## 1. Comment les addresses ethereum sont-elles créer?
+## 1. Comment les addresses ethereum sont-elles créees?
 
 Les addresses sur ethereum peuvent être créer de 4 façons différentes:
 - une transaction est envoyée à cette adresse
@@ -21,7 +19,7 @@ Les addresses sur ethereum peuvent être créer de 4 façons différentes:
 - de nouvelles adresses sont également créées lorsqu'un appel de message est effectué dans le cadre d'un contrat. Pour répertorier ces appels, chaque transaction doit être exécutée ou les traces de transaction doivent être inspectées
 
 
-## 1. Comment lister les adresses ethereum
+## 2. Comment lister les adresses ethereum
 
 1. obtenir tous les blocs
 2. de chaque bloc obtenir toutes les transactions et regarder le "from" et le "to"
@@ -37,12 +35,12 @@ on ne peut pas l'analyser car les addresses sont hasher avant d'être inscrit da
 
 ---
 
-## 2. ERC-20 Tokens Holders List 
+## 3. Liste des détenteurs de jetons ERC-20 
 
 https://stackoverflow.com/questions/63553500/get-array-of-ownership-of-an-erc20.  
 https://ethereum.stackexchange.com/questions/36274/a-list-of-token-holders-at-a-specific-time
 
-## Is it possible to get a list of token holders for a given ERC20 token from within another solidity contract?  
+## Est-il possible d'obtenir une liste des détenteurs de jetons pour un jeton ERC20 donné dans le cadre d'un autre solidity contract ?  
 
 Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockés dans une cartographie dans la plupart des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
 Les jetons ERC-20 ne maintiennent pas une liste itérable des détenteurs de jetons actuels, le type de mappage utilisé vous permet uniquement de vérifier une adresse connue. Pour obtenir une liste de tous les détenteurs de jetons, vous devez la traiter hors ligne et la construire vous-même à partir des données de la chaîne de blocs. Il n'est pas possible de réaliser ce que vous souhaitez en utilisant uniquement la chaîne de blocs, mais une combinaison de logique on-chain/off-chain peut vous permettre d'atteindre vos objectifs.  
@@ -52,7 +50,7 @@ https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
 
 ---
 
-## 3. List all contract & token associated to an account
+## 4. Liste de tous les contrats et jetons associés à un compte
 
 https://ethereum.stackexchange.com/questions/15372/how-can-i-view-all-the-tokens-and-contracts-associated-with-an-ethereum-address
 
