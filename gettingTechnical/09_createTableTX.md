@@ -39,7 +39,7 @@ Cependant, nous n'insérons pas les transactions d'une valeur de "0x0"...
    --ipcpath=~/IPC/geth.ipc --http --http.api eth,web3,personal --graphql --maxpeers 0
 ```
 
-## 2. On lance le service mysql et on créer la table tx
+## 2. On lance le service mysql et on créé la table tx
 ```shell script
 mysql> create table tx (`tx_id` int primary key auto_increment, `from` varchar(42), `value` varchar(30), `to` varchar(42), `blockNo` int);
 Query OK, 0 rows affected (0,24 sec)
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     print("\ntotal time exection: {}".format(time.time() - tt)) #Very Very long ~ 24h
 ```
 
-## 4. On observe le résultat dans la table sql
+## 4. On observe le résultat dans la table SQL
 ```shell script
 mysql> select * from tx order by tx_id DESC LIMIT 10;
 +-----------+--------------------------------------------+-----------------------+--------------------------------------------+---------+
