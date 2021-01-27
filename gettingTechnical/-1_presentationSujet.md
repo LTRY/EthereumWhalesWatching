@@ -159,8 +159,7 @@ Whale alert qui affiche en tant direct les transactions de montants importants e
 |:--:|
 | *la solution Etherscan :* |
 
-
-#### la solution WhaleAlert : 
+__________________________________________________________________________________________________________________________________________________________________
 
 | ![Image](../img/whalealert.png) |
 |:--:|
