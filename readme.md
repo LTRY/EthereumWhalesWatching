@@ -6,7 +6,7 @@
 
 ## Présentation du sujet 
 
-Ce répertoire est la vitrine de notre projet d'année qui à été réalisé dans le cadre du PI2 pour l'ESILV. Vous trouverez une partie qui raconte l'évolution du projet et une deuxième partie qui présente la solution, son code et le rendu. 
+Ce répertoire est la vitrine de notre projet d'année qui à été réalisé dans le cadre du PI2 pour l'ESILV. Vous trouverez une partie qui raconte l'évolution du projet et une deuxième qui présente la solution.
 
 ## Évolution du projet
 
