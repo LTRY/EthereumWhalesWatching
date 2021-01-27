@@ -1,7 +1,4 @@
-
-# Gros tu parles super fort en plus
-
-## Introduction Ethereum
+# Introduction Ethereum
 
 Il y a de fortes chances que vous ayez entendu parler de la blockchain Ethereum, que vous sachiez ou non de quoi il s'agit. Il apparait beaucoup dans les médias ces derniers temps, y compris la couverture de quelques grands magazines, mais la lecture de ces articles peut être comme du charabia si vous ne disposez pas d'une base pour ce qui est exactement Ethereum. Alors c'est quoi? Essentiellement, une base de données publique qui conserve un enregistrement permanent des transactions numériques. Surtout, cette base de données ne nécessite aucune autorité centrale pour la maintenir et la sécuriser. Au lieu de cela, il fonctionne comme un système transactionnel «sans confiance» - un cadre dans lequel les individus peuvent effectuer des transactions peer-to-peer sans avoir besoin de se faire confiance ou entre eux.
 
@@ -20,6 +17,10 @@ Reprendre des concepts de la finance traditionnelles, emprunt, assurance, la bou
 #### Comment mesurer le succès de la DeFi?
 Le succès d'un projet de la DeFi est souvent évalué par sa Total Value Locked (TVL) - Valeur Totale Verrouillée - en $.
 Par ailleurs, cette métrique est considérée comme la capitalisation boursière de l'ensemble de l'écosystème de la DeFi.
+
+| ![Image](img/defi_pulse_13:10:2020.png) |
+|:--:|
+| *Screenshot du site [DeFi Pulse](https://defipulse.com) le 13/10/2020* |
 
 Damir Bandalo, fondateur d'Encode Club, estime que la mesure de la croissance de la DeFi ne doit pas seulement se faire via son market cap. Il précise également que les capacités de cet écosystème à se développer sont immenses.
 En effet, seuls 3,85% des ethers (ETH) et 0,18% des bitcoins (BTC) sont verrouillés dans des protocoles de la DeFi. Cela est déjà conséquent, mais le potentiel du secteur est bien plus grand.
