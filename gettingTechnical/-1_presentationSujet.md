@@ -6,8 +6,14 @@ De plus, Ethereum permet d’exécuter des *smart-contracts* (contrats intellige
 
 On peut maintenant constaté l'arrivé de baleines sur ethereum, en effet elles possèdent 41% d'éther et sont responsables de gros mouvements de marché. L'atrait On peut identifier les portefeuilles associés à des acteurs majeurs tels que JPMorgan Chase, Reddit, IBM, Microsoft, Amazon et Walmart. 100% de ces portefeuilles accumulent de l'ETH. On ne sait pas à quelle fin, mais c'est clair: ils grandissent à ce prix et parient d'une manière ou d'une autre sur l'ETH.
 
+## Sommaire
+-   I.  Introduction à la DeFi
+-  II.  Répartition inégale des tokens d'ETH et de la Defi
+- III. Enjeux du monitoring de la blockchain
+-  IV. Etat de l'art
 
-## Introduction à la DeFi
+
+## I. Introduction à la DeFi
 
 #### Qu'est-ce que la DeFi?
 
@@ -35,7 +41,7 @@ Pourquoi 96% des apllications de la DeFi sont écrit sur la blokchain Ethereum ?
 Les applications DeFi sont principalement écritent avec la blockchain ethereum car celle-ci permet l’écriture de smart contracts avec le langage Solidity, qui est suffisamment mature et contient la logique nécessaire à la création de ces apps.
 Ethereum a l’écosystème autour des smarts contracts le plus développé.
 
-Milestones
+`Milestones`:
 Décembre 2017 : Lancement du Ethereum-based protocol MakerDao.
 Août 2018: Le terme DeFi surgit d'une conversation Telegram entre les devs et entrepreneurs d'ETH.
 Septembre 2018 : Lancement Compound Finance (COMP)
@@ -46,44 +52,35 @@ Février 2020 : Lancement Year.Finance
 Mars 2020 : Lancement Balancer(BAL)
 Août 2020 : Huobi DeFi Labs, initiative de l’exchange singapourien Huobi, créée la Global DeFi Alliance. A l’origine elle rassemblait uniquement les projets MakerDAO (MKR), Compound (COMP), Nest (NEST) et dYdX (dYdX).
 Septembre 2020: 10 nouveaux membres ont rejoint le consortium DeFi : Curve, Aave, Synthetix, Loopring, Zapper, Zerion, Bitpie, Mykey et CoinGecko.
-La Global DeFi Alliance vise à promouvoir la collaboration au sein d’un écosystème encore très nouveau et particulièrement hétéroclite. Plus précisément, il s’agit de rapprocher l’Orient de l’Occident, selon Sharlyn Wu, le responsable de l’investissement chez Huobi :
+La Global DeFi Alliance vise à promouvoir la collaboration au sein d’un écosystème encore très nouveau et particulièrement hétéroclite. Plus précisément, il s’agit de rapprocher l’Orient de l’Occident, selon Sharlyn Wu, le responsable de l’investissement chez Huobi:
 
-« Nous ressentons fortement l’isolement entre les exchanges centralisés, les institutions financières et la communauté globale, et nous voulons combler ce gouffre. Nous ressentons aussi les grandes différences culturelles entre l’Est et l’Ouest, et nous pensons qu’il en va de notre responsabilité de rassembler la communauté. »
+*« Nous ressentons fortement l’isolement entre les exchanges centralisés, les institutions financières et la communauté globale, et nous voulons combler ce gouffre. Nous ressentons aussi les grandes différences culturelles entre l’Est et l’Ouest, et nous pensons qu’il en va de notre responsabilité de rassembler la communauté. »*
 
 On liste 5 types d'application différentes dans la DeFi:
 
-Decentralized exchanges – Derivatives – Stable Coins – Lending & Borrowing – Margin Trading – Assurance
-
 ##### I . Decentralized Exchanges DEXES
-Liquidity Pool Based Dex :
-Il faut de la liquidité pour faire ces échanges décentralisés. Donc on prête des cryptos à la blockchain. On prête et on recoit un token qui prouve qu’on a prêté.
-
-UNISWAP: Permet d’échanger des tockens ERC20 contre ERC20
-Kyber network
-Bancor
-food tokens (SushiSwap -> PizzaCoin -> Sake) -> Ceux qui vont arriver en dernier finance ceux qui sont arriver en premier.
-Order Book Based Dex :
-
-Loopring
-Idex
+- Uniswap
+- Kyber network
+- Bancor
 
 ##### II. Derivatives
-Synthetix: Trading décentralisé , Provides on-chain exposure to different assests
+- Synthetix
 
 ##### III. Margin Trading
-Augmenter la position d’un asset en empruntant des fonds.
-dy/dx Fulcrum
+- dy/dx 
+- Fulcrum
 
 ##### IV. Insurrances
-Unslashed Donne des garanties de compensation.
-Protection contre le fail de smart contracts.
-Nexus Mutual Opyn
+- Unslashed
+- Nexus
+- Mutual
+- Opyn
 
 ##### V. Lending & Borrowing
-Lending:
+`Lending`:
 les détenteurs de tokens ERC-20 peuvent prêter leurs assets pour que d'autre empruntent monaillant un certain taux.
 
-Borrowing:
+`Borrowing`:
 L'idée n'est donc pas de d'emprunter de la liquidité et d'en rebourser une partie tous les mois comme dans la finance traditionelle centralisé.
 Il s'agit de mettre sous séquestre des jetons que l'on possède et qui servent de caution à un emprunt de ce même token ou d'autre dans une proportion moindre.
 
@@ -94,23 +91,17 @@ Un acteur possède une certaine quantité de tokens et pour une quelquonque rais
 Un acteur spécule sur la hausse d'un asset, il met sous séquestre cet asset et en obtient d'autre en échange. Si la hausse de l'asset compense le taux d'emprunt ou bien le bénéfice de l'activité résultante de l'asset emprunté fait de même, l'emprunteur s'y trouve gagant.
 On distingue 2 types d'applications qui proposent ce service:
 
-centralisé: (Crypto.com, binance) dont le mécanisme est opaque et dont les taux d'emprunts et de staking sont élevés et relativement fixe
-décentralisé (Compound) ou le mécanisme est régit selon un protocole open-source mais qui reste excessivement complexe. La dynamique de marché (offre/demande) dicte les taux et sont donc moins important que sur les exchanges centralisés car beaucoup moins utilisé. Un système de gouvernance peut aussi pondérer les taux.
-Note: Il est curieux de remarque que les baleines sont particulièrement investi dans ces projet --> link to another page
+- `centralisé`: (Crypto.com, binance) dont le mécanisme est opaque et dont les taux d'emprunts et de staking sont élevés et relativement fixe
+- `décentralisé`: (Compound, Aave) ou le mécanisme est régit selon un protocole open-source mais qui reste excessivement complexe. La dynamique de marché (offre/demande) dicte les taux et sont donc moins important que sur les exchanges centralisés car beaucoup moins utilisé. Un système de gouvernance peut aussi pondérer les taux.
+`Note`: Il est curieux de remarque que les baleines sont particulièrement investi dans ces projet
 
-Compound:
-biggest DeFi lending Project.
-Autonomous algorithmic interest rate protocol.
-
-AAVE:
-Collateral for borrowing another asset
 
 ##### VI. StableCoin
-Algorithmic stable coin (DAI)
-Non-algotihmic stable coins (USDC – USDT) – centralized
+- Algorithmic stable coin (DAI)
+- Non-algotihmic stable coins (USDC – USDT) – centralized
 
 
-## Répartition inégale des tokens d'ETH et de la Defi
+## II. Répartition inégale des tokens d'ETH et de la Defi
 
 Selon une analyse réalisée par Simone Conti, cofondateur de l'association DeFi Italie, les tokens de la finance décentralisée seraient distribués de façon inégale.
 
@@ -122,7 +113,7 @@ D'après le tableau ci-dessus, nous pouvons également observer que pour la gran
 Le suivi de la distribution des tokens reste cependant une mission délicate, car les analystes produisent des chiffres très différents en fonction des critères des adresses à inclure. Le responsable de DTC Capital, Spencer Noon, estime que Yearn.Finance (YFI) est l'un des tokens DeFi les mieux distribués sur Ethereum. Les cinq premières adresses détiendraient moins de 10 % de l'offre totale.
 Ainsi, cela contraste fortement avec l'évaluation de Simone Conti selon laquelle les cinq premières adresses du token YFI détiendraient près de 60 % des tokens en circulation.
 
-## Déplacement des baleines de BTC à ETH
+### Déplacement des baleines de BTC à ETH
 
 Les baleines crypto ne s'arrêtent pas avec Bitcoin. Les données indiquent que les grands investisseurs en crypto accumulent également Ethereum à un rythme rapide.
 Adam Cochran, un dirigeant du moteur de recherche axé sur la confidentialité DuckDuckGo, a déclaré qu'il avait audité manuellement les 10000 meilleures adresses Ethereum pour examiner l'activité des baleines, la rentabilité de la liquidité et la manipulation du marché du deuxième plus grand actif cryptographique.
@@ -134,7 +125,7 @@ Les baleines nouvelles et existantes ont acheté plus de 650 millions de dollars
 Et les données indiquent que ces gros investisseurs ne semblent pas non plus intéressés par la vente de leurs avoirs en ETH.
 
 
-## Enjeux du monitoring de la blockchain
+## III. Enjeux du monitoring de la blockchain
 
 Les baleines semblent capable de manipuler les cours comme le montre cette étude :
 
@@ -148,11 +139,11 @@ une fois que c'est fait, ils regroupent les transactions à leurs adresses. Cela
 En effet suivre ceux qu'il se passe en direct ,notamment les transactions dans la blockchain semble être un outil capital dans les stratégies de tradings et d'investissements. C'est pourquoi, nous souhaitons construire cette solution. 
 
 
-## Etat de l'art
+## IV. Etat de l'art
 
-Ethereum est un projet jeune donc on trouve peu de choses existantes. 
-Cependant deux projets sont  Whalealert, Etherscan.
-Whale alert qui affiche en tant direct les transactions de montants importants et EtherScan qui permet de voir le détail de toutes les transactions blockchain. 
+Le monitoring des baleines est un exercice compliqué qui nécessite une solutio off-chain et pour cette raison, on ne voit que peut de projet qui traitent du sujet. Cependant on trouve tout de même Whalealert, Etherscan.
+- Whale alert affiche en tant direct les transactions de montants importants.
+- EtherScan permet de voir le détail de toutes les transactions blockchain. 
  
 
 | ![Image](../img/EtherScan.png) |
@@ -166,7 +157,7 @@ Whale alert qui affiche en tant direct les transactions de montants importants e
 | *la solution [WhaleAlert](https://whale-alert.io)* |
 
 
-source:
+`SOURCE`:
 - https://fc19.ifca.ai/preproceedings/130-preproceedings.pdf
 - http://cs229.stanford.edu/proj2017/final-reports/5244232.pdf
 - https://arxiv.org/pdf/2003.13399.pdf
