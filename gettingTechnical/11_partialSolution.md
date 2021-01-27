@@ -1,11 +1,10 @@
 
 # 11 . Solution retenue
 
-*Au début, nous souhaitions développé une solution totalement dockerisée, c'est à dire faite de conteneur Docker qui intéragissent entre eux. 
+*Au début, nous souhaitions développer une solution totalement dockerisée, c'est à dire faite de conteneurs Docker qui intéragissent entre eux. 
 Au cours du développement, nous avons recontré de nombreuses difficultées quand à la dockerisation du logiciel. 
 Nous avons donc pensé notre rendu final de façon à ce qu'il soit possible d'exécuter ou non certains conteneurs, et donc 
-d'éxéctuer une partie du logiciel en local et l'autre partie sur la machine docker. Conceptualiser de cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une simple 
-facon de faire (éxécuter un `docker-compose.yml`), et la possibilité d'exécuté les composants séparemment.*
+d'éxéctuer une partie du logiciel en local et l'autre partie sur la machine docker. Conceptualiser de cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une simple facon de faire (éxécuter un `docker-compose.yml`), et la possibilité d'exécuté les composants séparemment.*
 
 
 ## I. Présentation de la solution
@@ -24,18 +23,18 @@ Notre solution finale se consistue de plusieurs fichiers qui permettent l'orches
 ```
 
 - `utils.py`: contient des méthodes pour créer des logs et stocker de grosses variables affin de faciliter la lecture de `producer.py` et de `consumer.py`
-- `producer.py`: effectue des requetes graphql sur la blockchain et les envoies les réponses le plus brute possible dans au `consumer.py`
-- `consumer.py`: traitent les réponses des requêtes, les enregistres dans un base de données et affiche des logs.
-- `DockerFile`: permet de créer une image python personaliser afin de créer des conteneurs capables d'éxécuter `producer.py` et `consumer.py`
+- `producer.py`: effectue des requêtes graphql sur la blockchain et envoie les réponses le plus brute possible au `consumer.py`
+- `consumer.py`: traite les réponses des requêtes, les enregistre dans une base de donnée et affiche des logs.
+- `DockerFile`: permet de créer une image python personalisée afin de créer des conteneurs capables d'éxécuter `producer.py` et `consumer.py`
 - `docker-compose.yml`: orchestre les différents conteuneurs entre eux.
 
 ---
 
 `La solution est pensée pour être modulaire`:
 - Le producer et le consumer peuvent être executer dans un conteneur ou bien en locale en fonction des arguments que l'on fournit.
-- Ils peuvent analyser les transactions de la blockchain depuis le debut ou bien reprendre aux derniers blocs téléchargés.
+- Ils peuvent analyser les transactions de la blockchain depuis le debut ou bien reprendre depuis les derniers blocs téléchargés.
 - Le consumer à la possibilité de ne pas interagir avec SQL, de sorte à n'afficher que des logs
-- Le consumer peut prendre des critères de selections pour les transactions qui doivent être traités. 
+- Le consumer peut prendre des critères de selection pour les transactions qui doivent être traitées. 
 
 `exemple`:
 ```shell script
