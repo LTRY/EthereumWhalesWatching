@@ -9,24 +9,23 @@
 ## Pourquoi utiliser GraphQL?
 
 Les requêtes RPC, que ce soit via IPC, WS ou HTTP ont plusieurs inconvéniants:
-- Lack of specification
-- Not strongly typed 
-- overfetching / underfetching
-- no concept of data & relationship
+- manque de specification
+- Pas fortement dactylographié 
+- sur-extrapolation / sous-extrapolation
+- pas de concept de données et de relations
 
 GraphQL est basé sur le protocol HTTP, ainsi, nous n'avons plus besoin de passer par IPC. Auparavant, nous devions travailler à l'intérieur du conteuneur, 
 en modifiant un peu l'image etherem/go-client. Ceci n'était pas une solution optimale, de plus, [nous recontrons de nombreux problèmes avec l'exploitation du conteneur GETH](12_difficulties&Evolutions.md#docker-image-ethereumclient-go-not-working). 
 Nous avons décider de revenir à une solution avec Geth en locale.
 
-## 0. Jusqu'ici
+## 1. Jusqu'ici
 
-Comme dit précédémment, le scrapping du premier million de blocks de la blockchain ethereum représente une étape majeure 
-en soit. On ne s'occupe pas encore pour l'instant d'aller chercher les blocs au dessus pour 2 raisons:
+Comme dit précédémment, le scrapping du premier million de blocks de la blockchain ethereum représente une étape majeure. On ne s'occupe pas encore pour l'instant d'aller chercher les blocs au dessus pour 2 raisons:
 - on a toujours pas réussit à télécharger la blockchain en entier
 - nous sommes toujours en phase de test et d'exploration ce qui signifit que certainement nous serons amenés à 
-retourner chercher d'autres infos et donc de répéter le processus.
+retourner chercher d'autres infos et donc à répéter le processus.
 
-Maintenant que nous maitrisons la technique la plus simple de récupération de données càd via RPC, nous nous attelons à 
+Maintenant que nous maitrisons la technique la plus simple de récupération de données c'est à dire via RPC, nous nous attelons à 
 une nouvauté de client ethereum geth sorti en juillet 2019: GraphQL.
 
 
@@ -36,13 +35,13 @@ une nouvauté de client ethereum geth sorti en juillet 2019: GraphQL.
 - on execute le script `scrap.py` en local et on attend un certain temps
 - on observe le résultat dans le container sql
 
-## 1. Rendre disponible le noeud Ethereum stocker sur notre HDD.
+## 2. Rendre disponible le noeud Ethereum stocker sur notre HDD.
 ```shell script
 ~ geth --syncmode fast --nousb --cache 4096 --datadir=/Volumes/ETH/.ethereum/.ethereum \
    --ipcpath=~/IPC/geth.ipc --http --http.api eth,web3,personal --graphql --maxpeers 0
 ```
 
-## 2. Monter le conteuneur SQL
+## 3. Monter le conteuneur SQL
 ```shell script
 ~ docker run -p 3306:3306 --name db2 -v ETH:/var/lib/mysql \
     -e MYSQL_ROOT_PASSWORD=pwd -d mysql --innodb-use-native-aio=0
@@ -55,7 +54,7 @@ mysql> create table addrQL(`from` varchar(42) primary key, `value` varchar(30));
 - On créer une table sql qui ne prend pas le nonce. Pour une raison, il apparait tout le temps "0x0"
 
 
-## 3. On exécute le script scrap.py en local
+## 4. On exécute le script scrap.py en local
 `scrap.py`
 ```python
 from gql import gql, Client
@@ -142,7 +141,7 @@ if __name__ == '__main__':
 100%|██████████| 3840/3840 [10:29<00:00,  6.10it/s]
 ```
 
-## 4. On se rend dans le conteneur SQL et en tire nos observations
+## 5. On se rend dans le conteneur SQL et en tire nos observations
 ```shell script
 mysql> select count(*) from addrQL;
 +----------+
@@ -161,10 +160,10 @@ mysql> select count(*) from addrQL;
 
 ### Après avoir fait tourner le script sur plus de blocs..
 
-Au 5414500 ème block, on contabilise 24 099 616 d'adresses ethereum unique. Nous pensions que le temps d'exécution sera 
+Au 5414500 ème block, on contabilise 24 099 616 d'adresses ethereum unique. Nous pensions que le temps d'exécution serait 
 relativement moins élevé puique qu'il nous a fallut pas loin de 6h d'exécution. Il semblerait que la méthode GraqphQL soit 
-efficace lorsqu'il s'agit des premiers blocs. Mais que celle-ci ai tout de même du mal à parcourir la fin de la blockchain ou les blocs sont plus grand. 
-Il semblerait que le temps d'execution des requetes graphQL soient proportionelles à la taille des blocs, nous essyerons donc prochainement de déterminer le temps d'execution de notre script sur la blockchain complète.
+efficace lorsqu'il s'agit des premiers blocs. Mais que celle-ci ait tout de même du mal à parcourir la fin de la blockchain ou les blocs sont plus grand. 
+Il semblerait que le temps d'execution des requetes graphQL soient proportionelles à la taille des blocs, nous essayerons donc prochainement de déterminer le temps d'execution de notre script sur la blockchain complète.
 ```shell script
 mysql> select count(*) from addrQL;
 +----------+
