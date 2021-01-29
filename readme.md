@@ -23,7 +23,7 @@ Ce répertoire est la vitrine de notre projet d'année qui à été réalisé da
 #### 09 . [ Créer la table Tx qui répertorie les transacions suspect](gettingTechnical/09_createTableTX.md)
 #### 10 . [ Utilisation de Kafka: Explication/Installation](gettingTechnical/10_includeKafka.md)
 #### 11 . [ Solution retenue](gettingTechnical/11_partialSolution.md)
-#### 12 . [ Difficultés et perspectives d'évolutions](gettingTechnical/12_difficulties&Evolutions.md)
+#### 12 . [ Apprentissage, Difficultés et perspectives d'évolutions](gettingTechnical/12_difficulties&Evolutions.md)
 
 ## Apercu de la solution finale
 
