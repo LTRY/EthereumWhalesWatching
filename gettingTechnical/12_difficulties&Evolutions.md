@@ -1,5 +1,9 @@
-# 12 . Difficultés et perspectives d'évolutions
+# 12 . Apprentissage, Difficultés et perspectives d'évolutions
 
+# Apprentissage
+- Geth & Ethereum - IPC-HTTP-WS & GraphQL & State Trie & Synchro
+- Docker - difficultés d'utilisation de Docker avec HDD & Alpine-apk 
+- 
 
 # Prespective d'évolution
 - [wait-for-it conteneur](#prespective-dévolution-1)
@@ -356,7 +360,7 @@ zsh: pipe failed: too many open files in system
 
 
 ### Mysql brutal shutdown
-Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser parfois des proclèmes. C'est le cas de mysql, lorsque cela arrive certain fichier deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
+Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser parfois des problèmes. C'est le cas de mysql, lorsque cela arrive certain fichier deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
 Gracefully Stopping Docker Containers: https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
 Autres issues rencontrées avec Mysql:
