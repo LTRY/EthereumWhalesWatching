@@ -1,9 +1,7 @@
 # 12 . Apprentissage, Difficultés et perspectives d'évolutions
 
 # Apprentissage
-- Geth & Ethereum - IPC-HTTP-WS & GraphQL & State Trie & Synchro
-- Docker - difficultés d'utilisation de Docker avec HDD & Alpine-apk 
-- 
+- résumé de ce que nous avons appris et des compétences que nous avons développé.
 
 # Prespective d'évolution
 - [wait-for-it conteneur](#prespective-dévolution-1)
@@ -20,6 +18,16 @@
 - [Mysql brutal shutdown](#mysql-brutal-shutdown)
 
 ---
+
+# Apprentissage
+*Ceci un petit résumé de ce que nous avons appris et des compétences que nous avons développé pendant notre PI2.*
+
+Premièrement, nous avons appris que la synchronisation d'un noeud Ethereum n'était pas aisé que cela pouvait prendre beaucoup de temps. C'est également une très mauvaise idée d'écrire les données de la blockchain sur une disque dur HDD et non SDD en raison de la capacité d'écriture insuffisante de cet dernier.  
+Nous avons appris qu'il y avait différents protocols pour faire des requêtes sur la blockchain par l'intermédiare du client Geth (IPC, WS, HTTP (dans l'ordre de vitesse d'éxécution)). Ces 3 protocols permettent de faire des requêtes RPC-Json classique. Cependant l'implémentation de graphQL dans la release 1.19 de Geth change la donne puisque cette methode de requêtage est plus rapide mais fonctionne uniquement sur le protocol HTTP. Il y a alors un tradeoff entre une requête GraphQL sur HTTP et RPC-Json sur IPC. Au final, nous avons déterminé que la première méthode est la plus rapide.  
+Nous avons également appris qu'il était très compliqué de faire fonctionner une solution dockerisé sur une machine à faible mémoire vive. Essayer de faire fonctionner des conteneurs en écrivant leurs données sur un HDD pose aussi problème puisque docker ne prend pas en compte nativement la gestion des utilisateurs qui entre en compte lorsqu'un volume externe est branché.
+Un des objetifs du projet était de transformer les données des transactions écritent sur la blockchain dans une table SQL afin de pouvoir faire des requêtes plus facilement dessus. Cependant, nous nous sommes rendu compte par l'expérience que plus une table SQL est grosse plus les requêtes deviennent longue. Sans l'architecture adéquate il devient vite impossible de faire des requêtes.  
+Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse est une baleine ne se limite pas à regarder le montant de leur transaction. Il y a un bon nombre d'adresse qui où bien sont des exchanges, où bien sont des contrats qui sont légitimes à faire de grosses transactions. Si l'on soupconne une addresse d'être une baleine, il faut vérifier l'historique de sa balance et le comparer avec le cours de l'ETH/USD afin de déterminer si oui ou non il y a une correlation entre les deux.
+
 
 # Prespective d'évolution
 
