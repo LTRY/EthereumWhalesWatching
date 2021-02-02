@@ -20,7 +20,7 @@ Nous définissons alors 3 tables sql:
 - Dans la 3ème table `isWhale` n'est pas forcément `bool`(binaire), on peut aussi définir des types de holder (ex: `exchange`, `particulier`, `test`, `active`, `inactive`).
 - La 3ème table peut potentiellement contenir toutes les adresses possibles, même si nous estimons qu'il y en a plusieurs dizaines de millions, cela reste un nombre de lignes correct pour SQL, avec des requêtes ~ 10s
 - La table 1 permet de faire le lien avec la table 2 qui correpond au prix auquel a pu s'échanger l'ETH.
-- La 2 NE DOIT PAS accueillir toutes les transactions, on en compte plusieurs milliards. Les récupérer serait très douleureux à traiter, et nous allons essayer de ne pas avoir de bases de données trop lourdes.  
+- La table 2 NE DOIT PAS accueillir toutes les transactions, on en compte plusieurs milliards. Les récupérer serait très douleureux à traiter, et nous allons essayer de ne pas avoir de bases de données trop lourdes.  
 
 ```
 TABLE block_info
@@ -167,8 +167,8 @@ mysql> select count(*) from block_info;
 +----------+
 1 row in set (0,88 sec)
 ```
-- GraphQL ne récupère pas toutes les infos puisqu'on récupère 11327001 bloc dans la table SQL mais on en a 11 327 362 sur notre noeud. Notre script avec Graphql n'est pas 100%     efficace puiqu'il oublie 361 blocs. 
-- De plus, l'exécution est un peu longue: 10429s ~ 2h 53 min49s
+- GraphQL ne récupère pas toutes les infos puisqu'on récupère 11327001 blocks dans la table SQL mais on en a 11 327 362 sur notre noeud. Notre script avec Graphql n'est pas 100%     efficace puiqu'il oublie 361 blocks. 
+- De plus, l'éxécution est un peu longue: 10429s ~ 2h 53 min49s
 
 ### 3. SQL To matplotlib.pyplot
 `plotTxByBlock.py` 
@@ -197,7 +197,7 @@ plt.show()
 
 | ![Image](../img/txByBlock.png) |
 |:--:|
-| *Évolution du nombre de transactions dans un block de 0 à * 11327362 ~ bloc du 25/11/2020* |
+| *Évolution du nombre de transactions dans un block de 0 à * 11327362 ~ block du 25/11/2020* |
 
 
-### A faire : estimation du temps d'exécution
+### A faire : estimation du temps d'éxécution
