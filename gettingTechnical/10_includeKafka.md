@@ -3,30 +3,30 @@
 
 
 ### Objectifs
-- Comprendre pourquoi on restera toujours bloqué 60-100 blocs derièrre la blockchain officielle.
-- Mettre au point un croquis de la solution avec docker et kafka
+- Comprendre pourquoi nous resterons bloqué 60-100 blocs derrière la blockchain officielle.
+- Mettre au point un croquis de la solution avec docker et kafka.
 
 
 ## Pourquoi la synchronisation ne se terminera jamais avec notre solution
 
-On remarque que notre noeud ne termine pas sa synchronisation, il reste en quelque sorte bloqué 100 blocs dernière. Il s'agit de quelque chose que l'on ne pourrat changer. 
-En effet, même avec une très bonne connection à internet, il n'est pas possible de compléter la synchronisation de la blockchain ethereum sur un HDD. Ceci est du a la limitation d'écriture/lecture du disque.
+On remarque que notre noeud ne termine pas sa synchronisation, il reste en quelque sorte bloqué 100 blocs derrière. Il s'agit de quelque chose que l'on ne peut changer. 
+En effet, même avec une très bonne connexion à internet, il n'est pas possible de compléter la synchronisation de la blockchain ethereum sur un HDD. Ceci est dû a la limitation d'écriture/lecture du disque.
 
-`explications`:
-- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est la mode de synchronisation que nous avons choisit car c'est le plus rapide.
+`Explications`:
+- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est la mode de synchronisation que nous avons choisi car c'est le plus rapide.
 - Au lieu de partir du bloc de genèse et de retraiter toutes les transactions qui se sont produites, la fast sync télécharge les blocs et ne vérifie que la preuve de travail associée. Le téléchargement de tous les blocs est une procédure simple et rapide.
-- Avoir les blocs ne veut pas dire être synchronisé. Puisque aucune transaction n'a été exécutée, nous n'avons donc aucun état de compte disponible (c'est-à-dire soldes, nonces, code de contrat intelligent et données). Ceux-ci doivent être téléchargés séparément et vérifiés avec les derniers blocs. Cette phase s'appelle le `state trie download ` et elle s'exécute en fait en même temps que les téléchargements de blocs.
-- Le `state trie` est un schéma complexe de centaines de millions de preuves cryptographiques. Pour vraiment avoir un nœud synchronisé, toutes les données des `accounts` doivent être téléchargées, ainsi que toutes les preuves cryptographiques pour vérifier que personne sur le réseau n'essaie de tricher. La partie où cela devient encore plus compliqué est que ces données se transforment constamment: à chaque bloc (15s), environ 1000 nœuds sont supprimés de ce trie et environ 2000 nouveaux sont ajoutés. Cela signifie que votre nœud doit synchroniser un ensemble de données qui change 200 fois par seconde. Le pire, c'est que pendant la synchronisation, le réseau avance et l'état que vous avez commencé à télécharger peut disparaître pendant le téléchargement, de sorte que votre nœud doit constamment suivre le réseau tout en essayant de collecter toutes les données récentes. Mais tant que vous n'avez pas collecté toutes les données, votre nœud local n'est pas utilisable car il ne peut rien prouver de manière cryptographique concernant les comptes.
-- Le state trie d'Ethereum contient des centaines de millions de nœuds, dont la plupart prennent la forme d'un seul hash référençant jusqu'à 16 autres hashs. C'est une très mauvaises façon de stocker des données sur un disque, car il n'y a presque pas de structure, juste des nombres aléatoires faisant référence à des nombres encore plus aléatoires. C'est problématique car cela ne permet pas d'optimiser le stockage et la recherche des données de manière significative.
+- Avoir les blocs ne veut pas dire être synchronisé. Puisque aucune transaction n'a été exécutée, nous n'avons donc aucun état de compte disponible (c'est-à-dire soldes, nonces, code de contrat intelligent et données). Ceux-ci doivent être téléchargés séparément et vérifiés avec les derniers blocs. Cette phase s'appelle le `state trie download ` et elle s'exécute en même temps que les téléchargements de blocs.
+- Le `state trie` est un schéma complexe de centaines de millions de preuves cryptographiques. Pour vraiment avoir un nœud synchronisé, toutes les données des `accounts` doivent être téléchargées, ainsi que toutes les preuves cryptographiques pour vérifier que personne sur le réseau n'essaie de frauder. Cela devient encore plus compliqué quand que ces données se transforment constamment: à chaque bloc (15s), environ 1000 nœuds sont supprimés de ce trie et environ 2000 nouveaux sont ajoutés. Cela signifie que notre nœud doit synchroniser un ensemble de données qui change 200 fois par seconde. De plus, pendant la synchronisation, le réseau avance et l'état que nous avons commencé à télécharger peut disparaître. De sorte que le nœud doit constamment suivre le réseau tout en essayant de collecter toutes les données récentes. Mais tant que nous n'avons pas collecté toutes les données, le nœud local n'est pas utilisable car il ne peut rien prouver de manière cryptographique aux regards des comptes.
+- Le state trie d'Ethereum contient des centaines de millions de nœuds, dont la plupart prennent la forme d'un seul hash référençant jusqu'à 16 autres hashs. C'est une très mauvaises façon de stocker des données sur un disque, car il n'y a presque pas de structure, juste des nombres aléatoires faisant référence à des nombres encore plus aléatoires. C'est problématique car cela ne permet pas d'optimiser le stockage et la recherche de données de manière significative.
 
-*En conclusion, notre noeud ethereum restera coincée 60 à 100 blocs dernières la blockchain officielle. Cela ne nous pose pas plus de soucis que ca, cela voudra juste dire que nos analyses en temps réelles sur la blockchain auront un décalage de 10 minutes.*
+*En conclusion, notre noeud ethereum restera coincée 60 à 100 blocs dernières la blockchain officielle. Cela n'est pas problématique, nos analyses en temps réel sur la blockchain auront un décalage de 10 minutes.*
 
 
 ## Pourquoi utiliser Kafka?
 
 Apache Kafka est un projet open-source écrit en Scala, il est entretenu et développé par la fondation Apache Software. 
-Kafka est un système de gestion de flux de donnée en temps réel et à faible latence. Dans notre cas, il nous est utile car les requêtes faites sur la blockchain, le traitement ainsi que l'écriture de ces réponses dans une base de donnée externe ne se fait pas à la même vitesse. Il est donc préférable d'effectuer ces actions de manière asynchrone, nous délégeons cette tâche à Apache Kafka qui s'execute dans un conteneur.
-Même si l'utilisation de ce logiciel requière une grosse capacité de mémoire vive, une des raisons qui nous a poussé à l'utiliser dans notre solution est ca facilité d'intégration en temps que conteneur Docker. 
+Kafka est un système de gestion de flux de données en temps réel et à faible latence. Dans notre cas, il nous est utile car les requêtes faites sur la blockchain, le traitement ainsi que l'écriture de ces réponses dans une base de donnée externe ne se fait pas à la même vitesse. Il est donc préférable d'effectuer ces actions de manière asynchrone, nous délégeons cette tâche à Apache Kafka qui s'execute dans un conteneur.
+Même si l'utilisation de ce logiciel requière une grosse capacité de mémoire vive, une des raisons qui nous a poussé à l'utiliser dans notre solution est sa facilité d'intégration en temps que conteneur Docker. 
 
 `étapes`:
 - Faire tourner un noeud Geth
@@ -164,14 +164,14 @@ for message in consumer:
 ```
 
 `CONCLUSION`:
-- Kafka nous permet de lire et d'enregistrer les transactions de la blockchain de manière asynchrone. Ci-dessous, on peut voir un exemple de la solution en train de tourner
+- Kafka nous permet de lire et d'enregistrer les transactions de la blockchain de manière asynchrone. Ci-dessous, un exemple de la solution en train de tourner.
 
 | ![Image](../img/shells_SK08.png) |
 |:--:|
 | *Solution running* |
 
 
-`SOURCE`: 
+`SOURCES`: 
 - https://github.com/ethereum/go-ethereum/issues/16796  
 - https://github.com/ethereum/go-ethereum/issues/20938     
 - https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-kafka-with-docker-and-python-f788e2588cfc
