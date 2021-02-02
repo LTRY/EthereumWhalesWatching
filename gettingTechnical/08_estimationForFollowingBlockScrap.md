@@ -1,5 +1,5 @@
 
-# 08 . Estimer le temps d'execution total du script
+# 08 . Estimation du temps d'éxécution total du script
 
 ### Objectifs
 - Prendre des données des tables SQL et en faire un graphique.
