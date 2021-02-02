@@ -25,8 +25,8 @@
 Premièrement, nous avons appris que la synchronisation d'un noeud Ethereum n'était pas chose aisée et que cela pouvait prendre beaucoup de temps. C'est également une très mauvaise idée d'écrire les données de la blockchain sur une disque dur HDD et non SDD en raison de la capacité d'écriture insuffisante de ce dernier.  
 Nous avons appris qu'il y avait différents protocols pour faire des requêtes sur la blockchain par l'intermédiare du client Geth (IPC, WS, HTTP (dans l'ordre de vitesse d'éxécution)). Ces 3 protocols permettent de faire des requêtes RPC-Json classique. Cependant l'implémentation de graphQL dans la release 1.19 de Geth change la donne puisque cette methode de requêtage est plus rapide mais fonctionne uniquement sur le protocol HTTP. Il y a alors un tradeoff entre une requête GraphQL sur HTTP et RPC-Json sur IPC. Au final, nous avons déterminé que la première méthode est la plus rapide.  
 Nous avons également appris qu'il était très compliqué de faire fonctionner une solution dockerisée sur une machine à faible mémoire vive. Essayer de faire fonctionner des conteneurs en écrivant leurs données sur un HDD pose aussi problème puisque docker ne prend pas en compte nativement la gestion des utilisateurs qui entre en compte lorsqu'un volume externe est branché.
-Un des objetifs du projet était de transformer les données des transactions écritent sur la blockchain dans une table SQL afin de pouvoir faire des requêtes plus facilement dessus. Cependant, nous nous sommes rendu compte par l'expérience que plus une table SQL est grosse plus les requêtes deviennent longue. Sans l'architecture adéquate, il devient vite impossible de faire des requêtes.  
-Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse est une baleine ne se limite pas à regarder le montant de leur transaction. Il y a un bon nombre d'adresse qui sont des exchanges, ou bien qui sont des contrats légitimes à faire de grosses transactions. Si on soupconne une addresse d'être une baleine, il faut vérifier l'historique de sa balance et le comparer avec le cours de l'ETH/USD afin de déterminer si oui ou non il y a une correlation entre les deux.
+Un des objetifs du projet était de transformer les données des transactions écritent sur la blockchain dans une table SQL afin de pouvoir faire des requêtes plus facilement dessus. Cependant, nous nous sommes rendu compte par l'expérience que plus une table SQL est grosse, plus les requêtes deviennent longues. Sans l'architecture adéquate, il devient vite impossible de faire des requêtes.  
+Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse est une baleine ne se limite pas à regarder le montant de leur transaction. Il y a un bon nombre d'adresses qui sont des exchanges, ou bien qui sont des contrats légitimes à faire de grosses transactions. Si on soupconne une addresse d'être une baleine, il faut vérifier l'historique de sa balance et le comparer avec le cours de l'ETH/USD afin de déterminer si oui ou non il y a une correlation entre les deux.
 
 
 # Perspectives d'évolutions
@@ -40,11 +40,11 @@ Dans la situation où un conteneur est dépendant du service managé par un autr
 
 ## Rajouter un healtcheck sur les conteneurs
 
-Le heatlthcheck est une bonne pratique à adopter lors de la conception d'architecture qui implique l'orchestration de conteneurs. Un healthcheck est un script qui vérifie le bon état de santé d'un des conteneurs en particulier. Effectivement, comme mentionné précédemment, il est possible d'avoir un conteneur UP mais que celui-ci n'est soit pas disposé à faire fonctionner le service qu'il embarque. 
+Le heatlthcheck est une bonne pratique à adopter lors de la conception d'architecture qui implique l'orchestration de conteneurs. Un healthcheck est un script qui vérifie le bon état de santé d'un des conteneurs en particulier. Effectivement, comme mentionné précédemment, il est possible d'avoir un conteneur UP mais celui-ci n'est pas disposé à faire fonctionner le service qu'il embarque. 
 
 ## Remplacer la base de données actuelles utilisé par une de type redis ou noSQL
 
-La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puisque celle-ci implique de penser à une struture simple mais fixe de notre solution. Il serait posssible de stocker les données de l'application dans un cadre moins relationnel afin d'obtenir une structure plus complexe. Enfin, étant donné qu'un gros défaut de notre application soit son temps d'exécution, il serait intéressant d'étudier la possibilité d'implémenter une base de donnée de type clé:valeur à mémoire cache comme Redis.   
+La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puisque celle-ci implique de penser à une struture simple mais fixe de notre solution. Il serait posssible de stocker les données de l'application dans un cadre moins relationnel afin d'obtenir une structure moins complexe. Enfin, étant donné qu'un gros défaut de notre application soit son temps d'exécution, il serait intéressant d'étudier la possibilité d'implémenter une base de donnée de type clé:valeur à mémoire cache comme Redis.   
 
 ---
 
@@ -182,7 +182,7 @@ En effet, même avec une très bonne connection à internet, il n'est pas possib
 
 
 ## graphql timeout
-On recoit beacoup d'erreurs de Timeout parce que les requêtes prennent trop de temps. On peut modifier le paramètre timeout dans graphQL mais cela ne résout pas toujours le problème.
+On reçoit beaucoup d'erreurs de Timeout parce que les requêtes prennent trop de temps. On peut modifier le paramètre timeout dans graphQL mais cela ne résout toujours pas le problème.
 graphql issue: https://medium.com/workflowgen/graphql-query-timeout-and-complexity-management-fab4d7315d8d
 
 
