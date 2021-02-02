@@ -1,4 +1,4 @@
-# Introduction Ethereum
+# Introduction à Ethereum
 
 Il y a de fortes chances que vous ayez entendu parler d'Ethereum, que vous sachiez ou non de quoi il s'agit. Il apparait beaucoup dans les médias ces derniers temps, y compris sur la couverture de quelques grands magazines. Alors de quoi s'agit-il? Essentiellement, c'est une base de données publique qui conserve un enregistrement permanent des transactions numériques. Cette base de données ne nécessite aucune autorité centrale pour la maintenir et la sécuriser. Au lieu de cela, il fonctionne comme un système transactionnel «sans confiance» - un cadre dans lequel les individus peuvent effectuer des transactions peer-to-peer sans avoir besoin de se faire confiance ou entre eux.
 
@@ -42,14 +42,23 @@ Ethereum a donc l’écosystème autour des smart contracts le plus développé.
 `Milestones`:
 Décembre 2017 : Lancement du Ethereum-based protocol MakerDao.
 Août 2018: Le terme DeFi surgit d'une conversation Telegram entre les devs et entrepreneurs d'ETH.
+
 Septembre 2018 : Lancement Compound Finance (COMP)
+
 Novembre 2018 : Lancement Uniswap (UNI)
+
 Février 2019 : Lancement de Synthetix on the mainnet
+
 Janvier 2020: Lancement de Curve
+
 Février 2020 : Lancement Year.Finance
+
 Mars 2020 : Lancement Balancer(BAL)
+
 Août 2020 : Huobi DeFi Labs, initiative de l’exchange singapourien Huobi, créée la Global DeFi Alliance. A l’origine elle rassemblait uniquement les projets MakerDAO (MKR), Compound (COMP), Nest (NEST) et dYdX (dYdX).
+
 Septembre 2020: 10 nouveaux membres ont rejoint le consortium DeFi : Curve, Aave, Synthetix, Loopring, Zapper, Zerion, Bitpie, Mykey et CoinGecko.
+
 La Global DeFi Alliance vise à promouvoir la collaboration au sein d’un écosystème encore très nouveau et particulièrement hétéroclite. Plus précisément, il s’agit de rapprocher l’Orient de l’Occident, selon Sharlyn Wu, le responsable de l’investissement chez Huobi:
 
 *« Nous ressentons fortement l’isolement entre les exchanges centralisés, les institutions financières et la communauté globale, et nous voulons combler ce gouffre. Nous ressentons aussi les grandes différences culturelles entre l’Est et l’Ouest, et nous pensons qu’il en va de notre responsabilité de rassembler la communauté. »*
@@ -79,18 +88,19 @@ On liste 5 types d'applications différentes dans la DeFi:
 les détenteurs de tokens ERC-20 peuvent prêter leurs assets pour que d'autres empruntent mnonayant un certain taux.
 
 `Borrowing`:
-L'idée n'est donc pas de d'emprunter de la liquidité et d'en rebourser une partie tous les mois comme dans la finance traditionelle centralisé.
-Il s'agit de mettre sous séquestre des jetons que l'on possède et qui servent de caution à un emprunt de ce même token ou d'autre dans une proportion moindre.
+L'idée n'est donc pas d'emprunter de la liquidité et d'en rebourser une partie tous les mois comme dans la finance traditionelle centralisée.
+Il s'agit de mettre sous séquestre des jetons que l'on possède et qui servent de caution à un emprunt de ce même token ou d'autres dans une proportion moindre.
 
 Instinctivement, mettre sous séquestre une quantité d'asset pour en emprunter une quantité moindre est une opération qui parait peu lucrative et ne résonne guère avec la définition du terme emprunt.
 Pourtant, on peut voir plusieurs cas d'usage à l'utilisation de ses services:
 
-Un acteur possède une certaine quantité de tokens et pour une quelquonque raison, il ne veut pas s'en séparer et a besoin d'autre tokens pour d'autres activités.
-Un acteur spécule sur la hausse d'un asset, il met sous séquestre cet asset et en obtient d'autre en échange. Si la hausse de l'asset compense le taux d'emprunt ou bien le bénéfice de l'activité résultante de l'asset emprunté fait de même, l'emprunteur s'y trouve gagant.
+- Un acteur possède une certaine quantité de tokens et pour une quelquonque raison, il ne veut pas s'en séparer et a besoin d'autre tokens pour d'autres activités.
+- Un acteur spécule sur la hausse d'un asset, il met sous séquestre cet asset et en obtient d'autre en échange. Si la hausse de l'asset compense le taux d'emprunt ou bien le bénéfice de l'activité résultante de l'asset emprunté fait de même, l'emprunteur s'y trouve gagant.
+
 On distingue 2 types d'applications qui proposent ce service:
 
-- `centralisé`: (Crypto.com, binance) dont le mécanisme est opaque et dont les taux d'emprunts et de staking sont élevés et relativement fixe
-- `décentralisé`: (Compound, Aave) ou le mécanisme est régit selon un protocole open-source mais qui reste excessivement complexe. La dynamique de marché (offre/demande) dicte les taux et sont donc moins important que sur les exchanges centralisés car beaucoup moins utilisé. Un système de gouvernance peut aussi pondérer les taux.
+- `centralisée`: (Crypto.com, binance) dont le mécanisme est opaque et dont les taux d'emprunts et de staking sont élevés et relativement fixe
+- `décentralisée`: (Compound, Aave) ou le mécanisme est régit selon un protocole open-source mais qui reste excessivement complexe. La dynamique de marché (offre/demande) dicte les taux et sont donc moins important que sur les exchanges centralisés car beaucoup moins utilisé. Un système de gouvernance peut aussi pondérer les taux.
 `Note`: Il est curieux de remarque que les baleines sont particulièrement investi dans ces projets.
 
 ##### VI. StableCoin
