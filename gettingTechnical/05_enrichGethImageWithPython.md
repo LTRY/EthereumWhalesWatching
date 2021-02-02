@@ -1,7 +1,7 @@
 
-# 05 . Enrichir l'image ethereum/client-go avec un interpréteur python
+# 05 . Enrichissement de l'image ethereum/client-go avec un interpréteur python
 
-### Objectif
+### Objectifs
 - Intégrer python et ses dépendances dans l'image geth.
 
 Le but ici est de comprendre qu'il y a différentes façons de se connecter à un noeud de la blockchain ethereum. 
