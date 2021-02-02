@@ -12,7 +12,7 @@
 
 ## 1. Comment les addresses ethereum sont-elles créées?
 
-Les addresses sur ethereum peuvent être créées de 4 façons différentes:
+Les adresses sur ethereum peuvent être créées de 4 façons différentes:
 - une transaction est envoyée à cette adresse.
 - un appel de message est effectué à cette adresse dans le cadre d'un contrat.
 - un bloc miné où l'adresse est spécifiée comme base de monnaie (destinataire de la récompense en bloc).
@@ -40,7 +40,7 @@ https://ethereum.stackexchange.com/questions/36274/a-list-of-token-holders-at-a-
 
 ## Est-il possible d'obtenir une liste des détenteurs de jetons pour un jeton ERC20 donné dans le cadre d'un autre solidity contract ?  
 
-Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockées dans une cartographie dont la pluspart sont des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
+Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockées dans une cartographie dont la plupart sont des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
 Les jetons ERC-20 ne maintiennent pas une liste itérable des détenteurs de jetons actuels, le type de mappage utilisé nous permet uniquement de vérifier une adresse connue. Pour obtenir une liste de tous les détenteurs de jetons, nous devez la traiter hors ligne et la construire nous-même à partir des données de la chaîne de blocs. Il n'est pas possible de réaliser ce que nous souhaitons en utilisant uniquement la chaîne de blocs, mais une combinaison de logique on-chain/off-chain peut nous permettre d'atteindre nos objectifs.  
 Il semble que nous devons passer en revue tous les événements de transfert pour un jeton ERC-20 spécifique. Cela semble très gourmand en ressources. Mais il semble que ce soit le seul moyen. Comme le montre cet exemple :
 https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
