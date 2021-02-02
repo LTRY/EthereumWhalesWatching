@@ -1,15 +1,15 @@
 
-# 09 . Créer la table Tx qui répertorie les transacions suspect
+# 09 . Créer la table Tx qui répertorie les transactions suspectes
 
-### Objectifs
-- créer la table TX
+### Objectif
+- Créer la table TX
 
 ## Why?
-- On veut répertoirier toutes les transactions effectués dans la blockchain pour ensuite repérer les baleines
+- On veut répertorier toutes les transactions effectuées dans la blockchain afin de repérer les baleines
 
 ## 0. Jusqu'ici
 
-On connait le nombre de transations dans la blockchain car nous avons récupérer ces informations dans la partie précédente. 
+Nous connaissons le nombre de transations dans la blockchain car nous avons récupérer ces informations dans la partie précédente. 
 ```shell script
 ~ mysql -uroot -p
 mysql> use ETH;
@@ -21,25 +21,23 @@ mysql> SELECT SUM(transactionCount) FROM block_info;
 +-----------------------+
 1 row in set (3,70 sec)
 ```
-On a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste raisonable de récupérer la totalité de 
-ces informations dans une table sql. Pour rappel, le but de transférer les données de la blockchain à une base de donnée SQL, 
-en perdant le moins d'informations possibles, SQL étant bien plus rapide pour effectuer des opérations sur nos données. 
+Il y'a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste raisonable de récupérer la totalité de ces informations dans une table sql. Pour rappel, le but est de transférer les données de la blockchain à une base de donnée SQL, tout en perdant le moins d'informations possibles. SQL étant bien plus rapide pour effectuer des opérations sur des données. 
 Cependant, nous n'insérons pas les transactions d'une valeur de "0x0"...
 
 `Etapes`:  
 - Faire tourner notre client Geth en local
-- Installer mysql en local avec homebrew et on créé la table `tx`
-- Executer le script `tableTX.py` en local
+- Installer mysql en local avec homebrew et création de la table `tx`
+- Exécuter le script `tableTX.py` en local
 - Observer le résultat dans la table sql
 
 
-## 1. Rendre disponible le noeud Ethereum stocker sur notre HDD.
+## 1. Rendre disponible le noeud Ethereum stocké sur notre HDD.
 ```shell script
 ~ geth --syncmode fast --nousb --cache 4096 --datadir=/Volumes/ETH/.ethereum/.ethereum \
    --ipcpath=~/IPC/geth.ipc --http --http.api eth,web3,personal --graphql --maxpeers 0
 ```
 
-## 2. On lance le service mysql et on créé la table tx
+## 2. Lancement du service mysql création de la table tx
 ```shell script
 mysql> create table tx (`tx_id` int primary key auto_increment, `from` varchar(42), `value` varchar(30), `to` varchar(42), `blockNo` int);
 Query OK, 0 rows affected (0,24 sec)
@@ -57,7 +55,7 @@ mysql> describe tx;
 5 rows in set (0,02 sec)
 ```
 
-## 3. On execute le script `tableTX.py` en local
+## 3. Exécution du script `tableTX.py` en local
 `tableTX.py`:
 ```python
 from gql import gql, Client
@@ -150,7 +148,7 @@ if __name__ == '__main__':
     print("\ntotal time exection: {}".format(time.time() - tt)) #Very Very long ~ 24h
 ```
 
-## 4. On observe le résultat dans la table SQL
+## 4. Observation des résultats dans la table SQL
 ```shell script
 mysql> select * from tx order by tx_id DESC LIMIT 10;
 +-----------+--------------------------------------------+-----------------------+--------------------------------------------+---------+
@@ -171,11 +169,11 @@ mysql> select * from tx order by tx_id DESC LIMIT 10;
 ```
 
 --- 
-# Difficulté
+# Difficultés
 *Arrivé au bloc 7598900, la table sql totalise pas moins de 32Go de données. C'est malheureusement trop pour être 
 stocké sur un ordinateur. Nous décidons donc de basculer notre mySQL sur le disque dur.*
 
-### 1. Determiner la taille de la table SQL
+### 1. Determination de la taille de la table SQL
 ```shell script
 mysql> SELECT
   TABLE_NAME AS `Table`,
@@ -198,7 +196,7 @@ DESC;
 3 rows in set (0,54 sec)
 ```
 
-### 2. Changer le datadir en ayant installer mysql avec HomeBrew
+### 2. Modification du datadir en ayant installer mysql avec HomeBrew
 ```shell script
 mysql> select @@datadir; # 0. Voir ou sont stocké les données
 ~ brew services stop mysql # 1. Stop mysql
@@ -208,17 +206,17 @@ mysql> select @@datadir; # 0. Voir ou sont stocké les données
 ~ brew services start mysql # Restart mysql
 ```
 
-### 3. Exporter/Importer une table SQL
+### 3. Exportation/Importation de la table SQL
 ```shell script
 mysqldump -p --user=username dbname tableName > tableName.sql
 mysql -u username -p -D dbname < tableName.sql
 ```
 
-On tire les conclusions suivantes:
-- 32 Go de données, c'est beaucoup trop, les requêtes sont très longues, de même pour l'importation/exportation des données. Il faut revoir nos critères d'insertions 
-- Étant donné la complexité que représente l'utilisation de Mysql en locale, il vaut mieux rester sur du mysql avec Docker.
+On en tire les conclusions suivantes:
+- 32 Go de données, c'est trop, les requêtes sont très longues, de même pour l'importation/exportation des données. Il faut revoir nos critères d'insertions 
+- Étant donné la complexité que représente l'utilisation de Mysql en local, il vaut mieux rester sur du mysql avec Docker.
 
-`SOURCE`:
+`SOURCES`:
 - https://chartio.com/resources/tutorials/how-to-get-the-size-of-a-table-in-mysql/
 - https://stackoverflow.com/questions/17756973/change-mysql-db-location-when-installed-with-homebrew
 - https://stackoverflow.com/questions/18741287/mysqldump-exports-only-one-table
