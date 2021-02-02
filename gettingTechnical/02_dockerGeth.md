@@ -25,8 +25,8 @@ docker run -ti -d \
 
 `Arguments associé au container`:  
 - `-v /Volumes/ETH/.ethereum:/root` permet d'écrire la blockchain sur notre disque dur externe
-- `-p 127.0.0.1:8545:8545` permet la connection au noeud via HTTP
-- `-p 30303:30303` est indispensable au client geth car il permet la connection entre les noeuds du réseau
+- `-p 127.0.0.1:8545:8545` permet la connexion au noeud via HTTP
+- `-p 30303:30303` est indispensable au client geth car il permet la connexion entre les noeuds du réseau
 - `ethereum/client-go` est le nom de l'image qui permet la conception du container
 
 `Arguments associé à geth`:  
@@ -75,7 +75,7 @@ docker exec -ti recursing_allen geth attach ipc:/IPC/geth.ipc \
 
 
 `CONCLUSION`:
-*Cette facon de telecharger la blockchain semble fonctionner. Prochainement, nous npus intéresserons aux méthodes qui permettent de récupérer les transactions de la blockchain. A noter que nous n'avons pas encore téléchargé la blockchain en entier, or il semblerait que la synchronisation d'un noeud soit un des plus gros challenge sur Ethereum et que cela constituera une prochaine problématique.*
+*Cette façon de télécharger la blockchain semble fonctionner. Prochainement, nous nous intéresserons aux méthodes qui permettent de récupérer les transactions de la blockchain. A noter que nous n'avons pas encore téléchargé la blockchain en entier, or il semblerait que la synchronisation d'un noeud soit un des plus gros challenge sur Ethereum et cela constituera une prochaine problématique.*
 
 
 `SOURCES`:
