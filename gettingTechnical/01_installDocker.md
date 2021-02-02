@@ -2,21 +2,20 @@
 
 ### Objectifs
 
-- Comprendre pourquoi Docker est-il si important pour notre projet
+- Comprendre pourquoi Docker est si important pour notre projet
 - Installer docker sur MacOS
 
 ---
 
-## 1. Why Docker?
+## 1. Pourquoi Docker?
 
-Docker est un outil qui peut empaqueter une application et ses dépendances dans un ou plusieurs conteneurs isolés, qui pourrait être exécuté sur n'importe quel serveur, de n'importe quelle distribution.
+Docker est un outil qui peut empaqueter une application et ses dépendances dans un ou plusieurs conteneurs isolés, pouvant être exécuté sur n'importe quel serveur, de n'importe quelle distribution.
 On parle de conteneurisation, une machine virtuelle très légère qui s'appuie sur certaines parties de la machine hôte pour son fonctionnement.
-Ainsi, faire fonctionner notre solution avec Docker voudrait dire la rendre flexible et portative. La blockchain ethereum et les données associées peuvent être stockées sur un disque dur qui peut être branché, débranché et rebranché sur n'importe quelle machine, et la solution continuerait de fonctionner. C'est aussi une facon à faire de sorte que le projet puisse être repris par d'autres plus facilement. 
-
+Ainsi, faire fonctionner notre solution avec Docker la rendre flexible et portative. La blockchain ethereum et les données associées peuvent être stockées sur un disque dur qui peut être branché, débranché et rebranché sur n'importe quelle machine, et la solution continuerait de fonctionner. C'est aussi une facon à faire de sorte que le projet puisse être repris par d'autres plus facilement. 
 
 ## 2. Docker on Mac
 
-Le but ici n'est pas forcément de montrer comment installer docker sur sa machine locale, je note juste les commandes qui m'ont permis d'obtenir le résultat qui fait fonctionner la solution du projet sur mon ordinateur. 
+Le but ici n'est pas forcément de montrer comment installer docker sur sa machine locale, nous notons juste les commandes qui nous ont permises d'obtenir le résultat la solution du projet sur nos ordinateurs. 
 Le guide suivant se trouve ici: https://medium.com/crowdbotics/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
 
 ```shell script
@@ -78,7 +77,7 @@ Creating CA: /Users/louistiercery/.docker/machine/certs/ca.pem
 `NOTE`:
 - A noté que ceci est l'ancienne facon d'installer Docker, depuis une installation par UI est proposé par Docker
 
-`SOURCE`:
+`SOURCES`:
 - https://docs.cancergenomicscloud.org/docs/mount-a-usb-drive-in-a-docker-container
 - https://www.tecmint.com/run-docker-container-in-background-detached-mode/
 - https://www.maketecheasier.com/copy-move-docker-container-to-another-host/
