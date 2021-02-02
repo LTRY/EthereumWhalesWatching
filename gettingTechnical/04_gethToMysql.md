@@ -1,16 +1,16 @@
 
-# 04 . Retranscrire les transactions de notre noeud Geth dans un conteneur mysql en passant par python en local
+# 04 . Retranscription des transactions du noeud Geth dans un conteneur mysql en passant par python en local
 
 
 ### Objectifs
 - créer un conteneur mysql
-- parcourir quelques blocs depuis la machine local
+- parcourir quelques blocs depuis la machine locale
 - enregistrer nos informations selon un schéma à déterminer
 
 
 ## 0. Jusqu'ici
 
-On a un container geth et une partie de la blockchain ethereum disponible.
+Nous avons un container geth et une partie de la blockchain ethereum disponible.
 L'accès au noeud ethereum se fait via **HTTP** et ce dernier se lance alors avec la commande suivante:
 ```shell script
 docker run -ti -d \
@@ -21,8 +21,8 @@ docker run -ti -d \
 
 ## I. PARTIE MYSQL
 
-On crée un conteneur Mysql avec les arguments de base requis. La base de données est stockée sur le disque dur de l'ordinateur. 
-On verra comment stocker la base de données sur notre disque externe plus tard !
+Nous créons un conteneur Mysql avec les arguments de base requis. La base de données est stockée sur le disque dur de l'ordinateur. 
+Nous nous intéresserons à comment stocker la base de données sur notre disque externe plus tard.
 
 ```shell script
 ~ docker run -p 3306:3306 --name db -e MYSQL_ROOT_PASSWORD=pwd -d mysql
@@ -31,7 +31,7 @@ On verra comment stocker la base de données sur notre disque externe plus tard 
 
 ---
 
-Maintenant go sur la console sql
+Maintenant sur la console sql
 ```shell script
 docker exec -ti db mysql -p
 
@@ -54,11 +54,11 @@ mysql> DESCRIBE addr;
 2 rows in set (0.01 sec)
 ```
 
-La base de données est prête à acceuillir de la donnée. 
+La base de données est prête à accueillir de la donnée. 
 
 ## II. PARTIE PYTHON
 
-On travaille avec python depuis notre ordinateur, on verra plus tard comment executer du script python depuis un conteneur docker.
+Nous travaillons avec python depuis notre ordinateur, nous verrons en temps voulu comment executer du script python depuis un conteneur docker.
 
 - On commence par installer la librairie `pymysql`
 ```shell script
@@ -95,7 +95,7 @@ def show():
     conn.close()
 ```
 
-- Ensuite on recupère les addresses des blocks 3 865 000 à 3 865 010 et les stocke dans la base de données grace à nos fonctions précédemment créées. 
+- Ensuite nous recupérons les addresses des blocks 3 865 000 à 3 865 010 et nous les stockons dans la base de données grace à nos fonctions précédemment créées. 
 `GethToMysql.py`
 ```python
 from web3 import Web3
@@ -153,8 +153,6 @@ mysql> select * from addr limit 10;
 ```
 
 ### Nos conclusions:
-- On a essayé de mettre la base de données directement sur notre disque dur externe et cela apporte son lot de difficultés. 
-  De plus, c'est très compliqué de faire en sorte à ce que la base de données soit accessible depuis une autre machine (windows pour sûr). 
-  A essayer avec un autre mac. Du coup avec un mac reboot, ca ne fonctionne pas non plus (chose marrante: in select * from user, on retrouve 2 roots)
-- Cette façon apporte beaucoup de doublons d'adresses. Prochainement travailler avec les adresses comme des PRIMARY KEY?
-- Tester la rapidité du processus, si on entre dans la base de données toutes les adresses, tous les blocks, tous les qq blocs **TODO**
+- Nous avons essayé de mettre la base de données directement sur notre disque dur externe et cela apporte son lot de difficultés. 
+  De plus, c'est très compliqué de faire en sorte que la base de données soit accessible depuis une autre machine (windows). 
+- Cette façon apporte beaucoup de doublons d'adresses. Prochainement il faudrait travailler avec les adresses comme des PRIMARY KEY?
