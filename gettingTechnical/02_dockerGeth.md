@@ -39,7 +39,7 @@ noeud et à ses différentes fonction via HTTP.
 
 ## Liste de commandes associées
 
-Une fois que l'on a monté un container geth, nous pouvons effectuer quelques actions dessus
+Une fois que l'on a monté un container geth, nous pouvons effectuer quelques actions dessus :
 
 - Lister les différents containers UP
 ```shell script
@@ -61,7 +61,7 @@ docker exec -it dazzling_hodgkin geth attach ipc:/IPC/geth.ipc
 ```
 
 - Pas forcément utile: Le container geth ne vient pas avec une extension python. Dommage. Ce script récupère une variable 
-depuis la console javascript et la fait passer en argument d'un script python éphémère. L'exercice était sympa ce pourquoi je la garde
+depuis la console javascript et la fait passer en argument d'un script python éphémère. 
 ```shell script
 python3 -c 'import sys; import datetime; print(datetime.datetime.fromtimestamp(int(sys.argv[1][5:15])).strftime("%d/%m/%Y"))' \
   "$(docker exec -ti recursing_allen geth attach ipc:/IPC/geth.ipc --exec "eth.getBlock(eth.syncing.currentBlock).timestamp")"
@@ -75,10 +75,10 @@ docker exec -ti recursing_allen geth attach ipc:/IPC/geth.ipc \
 
 
 `CONCLUSION`:
-*Cette facon de telecharger la blockchain semble fonctionner. Prochainement, nous intéresserons aux méthodes qui permettent de récupérer les transactions de la blockchain. A noter que nous n'avons pas encore téléchargé la blockchain en entier, or il semblerait que la synchronisation d'un noeud soit un des plus gros challenge sur Ethereum et que cela constituera une prochaine problématique.*
+*Cette facon de telecharger la blockchain semble fonctionner. Prochainement, nous npus intéresserons aux méthodes qui permettent de récupérer les transactions de la blockchain. A noter que nous n'avons pas encore téléchargé la blockchain en entier, or il semblerait que la synchronisation d'un noeud soit un des plus gros challenge sur Ethereum et que cela constituera une prochaine problématique.*
 
 
-`SOURCE`:
+`SOURCES`:
 - https://populus.readthedocs.io/en/latest/dev_cycle.part-08.html
 - https://medium.com/@andrenit/buildind-an-ethereum-playground-with-docker-part-2-docker-image-928f8ceaac50
 - https://ethereum.stackexchange.com/questions/392/how-can-i-get-a-geth-node-to-download-the-blockchain-quickly
