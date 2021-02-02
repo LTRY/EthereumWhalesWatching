@@ -16,22 +16,20 @@ Les addresses sur ethereum peuvent être créer de 4 façons différentes:
 - une transaction est envoyée à cette adresse
 - un appel de message est effectué à cette adresse dans le cadre d'un contrat
 - un bloc miné où l'adresse est spécifiée comme base de monnaie (destinataire de la récompense en bloc)
-- de nouvelles adresses sont également créées lorsqu'un appel de message est effectué dans le cadre d'un contrat. Pour répertorier ces appels, chaque transaction doit être exécutée ou les traces de transaction doivent être inspectées
-
+- de nouvelles adresses sont également créées lorsqu'un appel de message est effectué dans le cadre d'un contrat. Pour répertorier ces appels, chaque transaction doit être exécutée ou bien les traces de transaction doivent être inspectées.
 
 ## 2. Comment lister les adresses ethereum
 
 1. obtenir tous les blocs
-2. de chaque bloc obtenir toutes les transactions et regarder le "from" et le "to"
+2. dans chaque bloc, obtenir toutes les transactions et regarder le "from" et le "to"
 3. filtrer toutes les transactions ayant une valeur > 0
 4. enregistrer la liste de toutes les adresses
 5. filtrer les doublons
 6. filtrer les adresses avec un solde de 0
 
-
 `Note`:
-un noeud synchronisé à en mémoire ce qui s'appelle le state trie qui est contient toutes les informations à jour de qui possède quoi sur la blockchain, malheureusement, 
-on ne peut pas l'analyser car les addresses sont hasher avant d'être inscrit dans l'arbre
+un noeud synchronisé a en mémoire ce qui s'appelle le state trie qui est contient toutes les informations en temps réel de qui possède quoi sur la blockchain, malheureusement, 
+on ne peut pas l'analyser car les addresses sont hasher avant d'être inscrites dans l'arbre.
 
 ---
 
@@ -42,10 +40,10 @@ https://ethereum.stackexchange.com/questions/36274/a-list-of-token-holders-at-a-
 
 ## Est-il possible d'obtenir une liste des détenteurs de jetons pour un jeton ERC20 donné dans le cadre d'un autre solidity contract ?  
 
-Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockés dans une cartographie dans la plupart des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
+Il n'est pas possible d'obtenir une liste des détenteurs de jetons ERC20 directement à partir d'un contrat.  Les "balances" sont stockées dans une cartographie dans la plupart des contrats ERC20, mais comme nous ne pouvons pas obtenir une liste de clés pour une cartographie dans Solidity, il est impossible de le faire sans intervention externe.  
 Les jetons ERC-20 ne maintiennent pas une liste itérable des détenteurs de jetons actuels, le type de mappage utilisé vous permet uniquement de vérifier une adresse connue. Pour obtenir une liste de tous les détenteurs de jetons, vous devez la traiter hors ligne et la construire vous-même à partir des données de la chaîne de blocs. Il n'est pas possible de réaliser ce que vous souhaitez en utilisant uniquement la chaîne de blocs, mais une combinaison de logique on-chain/off-chain peut vous permettre d'atteindre vos objectifs.  
 
-Il semble que vous deviez passer en revue tous les événements de transfert pour un jeton ERC-20 spécifique. Cela semble très gourmand en ressources. Mais il semble que ce soit le seul moyen. Regardez cet exemple :
+Il semble que nous devons passer en revue tous les événements de transfert pour un jeton ERC-20 spécifique. Cela semble très gourmand en ressources. Mais il semble que ce soit le seul moyen. Comme le montre cet exemple :
 https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
 
 ---
@@ -54,13 +52,13 @@ https://docs.tokenmarket.net/captable.html#cap-table-for-any-erc-20-token
 
 https://ethereum.stackexchange.com/questions/15372/how-can-i-view-all-the-tokens-and-contracts-associated-with-an-ethereum-address
 
-D'ou le fait qu'il va falloir choisir un nombre fini de token pour pas que ca soit trop embetant.
+D'ou le fait qu'il faut choisir un nombre fini de token pour que ce ne soit pas trop gênant.
 
-Aussi https://stackoverflow.com/questions/49938672/web3-js-how-to-search-all-the-contracts-ever-created-by-and-address
+Et aussi https://stackoverflow.com/questions/49938672/web3-js-how-to-search-all-the-contracts-ever-created-by-and-address
 
 ---
 
-SOURCE:
+SOURCES :
 - https://medium.com/@piyopiyo/how-to-get-erc20-token-balance-with-web3-js-206df52f2561
 - https://ethereum.stackexchange.com/questions/27809/how-to-list-all-ethereum-addresses-with-a-positive-balance
 - https://github.com/ethereum/go-ethereum/wiki/Management-APIs#debug_tracetransaction
