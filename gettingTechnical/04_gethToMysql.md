@@ -3,9 +3,9 @@
 
 
 ### Objectifs
-- créer un conteneur mysql
-- parcourir quelques blocs depuis la machine locale
-- enregistrer nos informations selon un schéma à déterminer
+- Créer un conteneur mysql
+- Parcourir quelques blocs depuis la machine locale
+- Enregistrer nos informations selon un schéma à déterminer
 
 
 ## 0. Jusqu'ici
@@ -95,7 +95,7 @@ def show():
     conn.close()
 ```
 
-- Ensuite nous recupérons les addresses des blocks 3 865 000 à 3 865 010 et nous les stockons dans la base de données grace à nos fonctions précédemment créées. 
+- Enfin, nous récupérons les addresses des blocks 3 865 000 à 3 865 010 et nous les stockons dans la base de données grace à nos fonctions précédemment créées. 
 `GethToMysql.py`
 ```python
 from web3 import Web3
