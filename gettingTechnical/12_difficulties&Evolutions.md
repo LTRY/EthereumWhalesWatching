@@ -33,7 +33,7 @@ Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse e
 
 ## Attendre qu'un conteneur soit en état de marche avant d'en lancer un autre.
 
-Dans la situation où un conteneur est dépendant du service managé par un autre conteneur, on peut signifier au docker-compose l'argument `requires` et faire de sorte à ce que ce conteneur attende le démarage d'un autre avant de se lancer. Avec cet argument, on indique que les conteneurs doivent communiquer entre eux et en plus qu'ils doivent attendre que ceux-ci soient bien démarrés avant d'être montés. Le problème c'est qu'un conteuneur peut être considéré comme UP, pourtant le service qu'il orchestre n'est pas encore disponible, pouvant causer une erreur sur d'autres conteuneurs. Pour pallier à ce problème, ou bien on implémente une logique en interne dans le code des conteneurs ou alors on rajoute un script `bash` standardiser par docker: `wait-for-it.sh`
+Dans la situation où un conteneur est dépendant du service managé par un autre conteneur, on peut signifier au docker-compose l'argument `requires` et faire en sorte que ce conteneur attende le démarrage d'un autre avant de se lancer. Avec cet argument, on indique que les conteneurs doivent communiquer entre eux et qu'ils doivent attendre que ceux-ci soient bien démarrés avant d'être montés. Le problème est qu'un conteneur peut être considéré comme UP, bien que le service qu'il orchestre n'est pas encore disponible, pouvant ainsi causer une erreur sur d'autres conteneurs. Pour pallier à ce problème, ou bien on implémente une logique en interne dans le code des conteneurs ou bien on rajoute un script `bash` standardisé par docker: `wait-for-it.sh`
 
 - https://docs.docker.com/compose/startup-order/
 - https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y
@@ -52,9 +52,9 @@ La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puis
 
 ## Enrichir l'image ethereum/client-go de python
 
-L'image du client geth est construite sur l'image de l'OS Alpine. C'est un système d'exploitation très léger qui a l'inconvénient de n'inclure nativement que très peu de package. Il est possible d'installer python d'une seule commande sur l'OS, mais certaines libraries installable par `pip` font appelle à d'autres pacakges directement installer sur l'os. De cette facon, les installations des packages pip ne marchent pas et l'erreur est complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
+L'image du client geth est construite sur l'image de l'OS Alpine. C'est un système d'exploitation très léger qui a l'inconvénient de n'inclure nativement que très peu de packages. Il est possible d'installer python d'une seule commande sur l'OS, mais certaines libraries installable par `pip` font appel à d'autres pacakges directement installer sur l'os. De cette facon, les installations des packages pip ne marchent pas et l'erreur est complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
 
-Prblm lors de l'installation de web3 pour python
+Problème lors de l'installation de web3 pour python
 ```zsh
 pip install web3
 ```
@@ -87,7 +87,7 @@ Consider installing rusty-rlp to improve pyrlp performance with a rust based bac
 pip install rusty-rlp
 ```
 
-##### Avant avoir ajouté python
+##### Avant d'avoir ajouté python
 `Dockerfile`
 ```Dockerfile
 # Build Geth in a stock Go builder container
@@ -108,7 +108,7 @@ EXPOSE 8545 8546 30303 30303/udp
 ENTRYPOINT ["geth"]
 ```
 
-##### Apres avoir ajouté python
+##### Après avoir ajouté python
 `Dockerfile`
 ```Dockerfile
 # Build Geth in a stock Go builder container
@@ -143,7 +143,7 @@ ENTRYPOINT ["geth"]
 
 ## docker image ethereum/client-go not working
 
-Avec la dernière version de docker, ethereum/client-go refuse de créer un service geth si il doit ecrire les données de la blockchain sur un disque dur.
+Avec la dernière version de docker, ethereum/client-go refuse de créer un service geth s'il doit écrire les données de la blockchain sur un disque dur.
 
 ```Dockerfile
 version: '3.1'
@@ -169,10 +169,10 @@ services:
 ## Pourquoi la synchronisation ne se terminera jamais avec notre solution
 
 On remarque que notre noeud ne termine pas sa synchronisation, il reste en quelque sorte bloqué 100 blocs derrière. Il s'agit de quelque chose que l'on ne pourra changer. 
-En effet, même avec une très bonne connection à internet, il n'est pas possible de compléter la synchronisation de la blockchain ethereum sur un HDD. Ceci est dû a la limitation d'écriture/lecture du disque.
+En effet, même avec une très bonne connexion à internet, il n'est pas possible de compléter la synchronisation de la blockchain ethereum sur un HDD. Ceci est dû a la limitation d'écriture/lecture du disque.
 
 `explications`:
-- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est le mode de synchronisation que nous avons choisi car c'est le plus rapide.
+- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est le mode de synchronisation que nous avons choisi car étant le plus rapide.
 - Au lieu de partir du bloc de genèse et de retraiter toutes les transactions qui se sont produites, la fast sync télécharge les blocs et ne vérifie que la preuve de travail associée. Le téléchargement de tous les blocs est une procédure simple et rapide.
 - Avoir les blocs ne veut pas dire être synchronisé. Puisque aucune transaction n'a été exécutée, nous n'avons donc aucun état de compte disponible (c'est-à-dire soldes, nonces, code de contrat intelligent et données). Ceux-ci doivent être téléchargés séparément et vérifiés avec les derniers blocs. Cette phase s'appelle le `state trie download ` et elle s'exécute en fait en même temps que les téléchargements de blocs.
 - Le `state trie` est un schéma complexe de centaines de millions de preuves cryptographiques. Pour vraiment avoir un nœud synchronisé, toutes les données des `accounts` doivent être téléchargées, ainsi que toutes les preuves cryptographiques pour vérifier que personne sur le réseau n'essaie de tricher. Cela devient encore plus compliqué car les données se transforment constamment: à chaque bloc (15s), environ 1000 nœuds sont supprimés de ce trie et environ 2000 nouveaux sont ajoutés. Cela signifie que votre nœud doit synchroniser un ensemble de données qui change 200 fois par seconde. De plus, pendant la synchronisation, le réseau avance et l'état que vous avez commencé à télécharger peut disparaître, de sorte que votre nœud doit constamment suivre le réseau tout en essayant de collecter toutes les données récentes. Mais tant que vous n'avons pas collecté toutes les données, notre nœud local n'est pas utilisable car il ne peut rien prouver de manière cryptographique concernant les comptes.
@@ -368,7 +368,7 @@ zsh: pipe failed: too many open files in system
 
 
 ### Mysql brutal shutdown
-Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser des problèmes. C'est le cas de mysql, lorsque cela arrive certains fichiers deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
+Il arrive parfois que les conteneurs se détruisent brusquement et cela peut poser des problèmes. C'est le cas de mysql, lorsque cela arrive certains fichiers deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
 Gracefully Stopping Docker Containers: https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
 Autres issues rencontrées avec Mysql:
