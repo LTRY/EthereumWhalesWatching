@@ -2,26 +2,25 @@
 # 08 . Estimer le temps d'execution total du script
 
 ### Objectifs
-- prendre des données des tables SQL et en faire un graphe
-- prouver la faisabilité et déterminer la méthode pour de prochains graphes
+- Prendre des données des tables SQL et en faire un graphique.
+- Prouver la faisabilité et déterminer la méthode pour de prochains graphiques.
 
 ## Pourquoi?
-- Pour mieux compendre nos données, d'abord nous les visualisons
+- Pour mieux compendre nos données, d'abord nous les visualisons.
 
 ## 0. Préambule
 
-Nous avons réfléchi dans un premier temps aux graphiques que nous aimerions voir et aux informations qui nous servirons plus tard. 
+Nous avons réfléchi dans un premier temps aux graphiques que nous aimerions voir et aux informations qui nous serviront plus tard. 
 Nous définissons alors 3 tables sql:
-- une 1ere qui contient les informations relatives aux blocs
-- une 2e qui tient l'historique des transactions (et une colonnes si la transaction est susceptible d'impliquer une baleine)
-- une 3e qui retient les adresses disponibles sur eth et si oui ou non nous la définissons comme une baleine
+- une 1ère qui contient les informations relatives aux blocs.
+- une 2ème qui tient l'historique des transactions (et une colonnes si la transaction est susceptible d'impliquer une baleine).
+- une 3ème qui retient les adresses disponibles sur eth et si oui ou non nous la définissons comme une baleine.
 
-`REMARQUE`:
-- Dans la 3e table `isWhale` n'est pas forcément `bool`(binaire), on peut aussi définir des types de holder (ex: `exchange`, `particulier`, `test`, `active`, `inactive`)
-- La 3e table peut potentiellement contenir toutes les adresses possibles, meme si on estime qu'il y en a plusieurs dizaines de millions, cela reste un nombre de lignes correct pour du SQL, 
-avec des requêtes ~ 10s
-- La table 1 permet de faire le lien avec la 2 qui correpond au prix auquel a pu s'échanger l'ETH
-- La 2 NE DOIT PAS acceuillir toutes les transactions, on en compte plusieurs milliards. Les récupérer serait très douleureux à traiter, et on va essayer de ne pas avoir des bases de données trop lourde.  
+`REMARQUES`:
+- Dans la 3ème table `isWhale` n'est pas forcément `bool`(binaire), on peut aussi définir des types de holder (ex: `exchange`, `particulier`, `test`, `active`, `inactive`).
+- La 3ème table peut potentiellement contenir toutes les adresses possibles, même si nous estimons qu'il y en a plusieurs dizaines de millions, cela reste un nombre de lignes correct pour SQL, avec des requêtes ~ 10s
+- La table 1 permet de faire le lien avec la table 2 qui correpond au prix auquel a pu s'échanger l'ETH.
+- La 2 NE DOIT PAS accueillir toutes les transactions, on en compte plusieurs milliards. Les récupérer serait très douleureux à traiter, et nous allons essayer de ne pas avoir de bases de données trop lourdes.  
 
 ```
 TABLE block_info
@@ -40,10 +39,10 @@ TABLE holders
 +------+---------+-------+
 ```
 
-On va construire un premier graphe qui rend compte du nombre de transactions par bloc, du block 0 à 11327362 ~ 25/11/2020
+Construction d'un premier graphique qui rend compte du nombre de transactions par bloc, du block 0 à 11327362 ~ 25/11/2020
 
 
-### 1. Créer la table qui acceuillera les données
+### 1. Créer la table qui accueille les données
 ```shell script
 mysql> create table block_info (`number` int primary key,`transactionCount` int, `timestamp` int);
 Query OK, 0 rows affected (0,13 sec)
@@ -198,7 +197,7 @@ plt.show()
 
 | ![Image](../img/txByBlock.png) |
 |:--:|
-| *Évolution du nombre de transaction dans un block de 0 à * 11327362 ~ bloc du 25/11/2020* |
+| *Évolution du nombre de transactions dans un block de 0 à * 11327362 ~ bloc du 25/11/2020* |
 
 
 ### A faire : estimation du temps d'exécution
