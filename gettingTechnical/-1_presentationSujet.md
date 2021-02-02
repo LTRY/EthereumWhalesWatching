@@ -36,11 +36,12 @@ Nombreux sont ceux qui voient déjà en la DeFi le futur de la finance. Toutefoi
 Cela ne remet en aucun cas en cause la croissance de l'écosystème de la DeFi. Quel que soit le véritable market cap de ce secteur, rien ne peut remettre en question que ce dernier croît à une vitesse ahurissante.
 
 Pourquoi 96% des applications de la DeFi sont écrites sur la blokchain Ethereum ?
-Les applications DeFi sont principalement écritent avec la blockchain ethereum car celle-ci permet l’écriture de smart contracts avec le langage Solidity, qui est suffisamment mature et contient la logique nécessaire à la création de ces apps.
+Les applications DeFi sont principalement écrites avec la blockchain ethereum car celle-ci permet l’écriture de smart contracts avec le langage Solidity, qui est suffisamment mature et contient la logique nécessaire à la création de ces apps.
 Ethereum a donc l’écosystème autour des smart contracts le plus développé.
 
 `Milestones`:
 Décembre 2017 : Lancement du Ethereum-based protocol MakerDao.
+
 Août 2018: Le terme DeFi surgit d'une conversation Telegram entre les devs et entrepreneurs d'ETH.
 
 Septembre 2018 : Lancement Compound Finance (COMP)
@@ -88,14 +89,14 @@ On liste 5 types d'applications différentes dans la DeFi:
 les détenteurs de tokens ERC-20 peuvent prêter leurs assets pour que d'autres empruntent mnonayant un certain taux.
 
 `Borrowing`:
-L'idée n'est donc pas d'emprunter de la liquidité et d'en rebourser une partie tous les mois comme dans la finance traditionelle centralisée.
+L'idée n'est donc pas d'emprunter de la liquidité et d'en rebourser une partie tous les mois comme dans la finance traditionnelle centralisée.
 Il s'agit de mettre sous séquestre des jetons que l'on possède et qui servent de caution à un emprunt de ce même token ou d'autres dans une proportion moindre.
 
 Instinctivement, mettre sous séquestre une quantité d'asset pour en emprunter une quantité moindre est une opération qui parait peu lucrative et ne résonne guère avec la définition du terme emprunt.
 Pourtant, on peut voir plusieurs cas d'usage à l'utilisation de ses services:
 
-- Un acteur possède une certaine quantité de tokens et pour une quelquonque raison, il ne veut pas s'en séparer et a besoin d'autre tokens pour d'autres activités.
-- Un acteur spécule sur la hausse d'un asset, il met sous séquestre cet asset et en obtient d'autre en échange. Si la hausse de l'asset compense le taux d'emprunt ou bien le bénéfice de l'activité résultante de l'asset emprunté fait de même, l'emprunteur s'y trouve gagant.
+- Un acteur possède une certaine quantité de tokens et pour une certaine raison, il ne veut pas s'en séparer et a besoin d'autre tokens pour d'autres activités.
+- Un acteur spécule sur la hausse d'un asset, il met sous séquestre cet asset et en obtient d'autre en échange. Si la hausse de l'asset compense le taux d'emprunt ou bien le bénéfice de l'activité résultante de l'asset emprunté fait de même, l'emprunteur s'y trouve gagnant.
 
 On distingue 2 types d'applications qui proposent ce service:
 
@@ -123,7 +124,7 @@ Ainsi, cela contraste fortement avec l'évaluation de Simone Conti selon laquell
 
 Les baleines crypto ne s'arrêtent pas simplement avec Bitcoin. Les données indiquent que les grands investisseurs en crypto accumulent également Ethereum à un rythme rapide.
 Adam Cochran, un dirigeant du moteur de recherche axé sur la confidentialité DuckDuckGo, a déclaré qu'il avait audité manuellement les 10000 meilleures adresses Ethereum pour examiner l'activité des baleines, la rentabilité de la liquidité et la manipulation du marché du deuxième plus grand actif cryptographique.
-Cochran expliquent que les baleines existantes ont augmenté leurs positions Ethereum de plus de 550 millions de dollars, soit 4%, au cours des six derniers mois, par rapport au total estimé de 600 millions de dollars de nouveaux afflux de capitaux que Bitcoin a connu sur toute l'année dernière.
+Cochran explique que les baleines existantes ont augmenté leurs positions Ethereum de plus de 550 millions de dollars, soit 4%, au cours des six derniers mois, par rapport au total estimé de 600 millions de dollars de nouveaux afflux de capitaux que Bitcoin a connu sur toute l'année dernière.
 Et ce n'est pas juste les baleines existantes qui accumulent, selon l'exécutif de DuckDuckGo.
 «Il y a un nombre important de nouveaux portefeuilles dans le top 10k dont la première transaction a été associée à des échanges fiat onramp qui servent des clients à grande échelle (principalement Gemini, Kraken et Coinbase).
 Ces nouvelles adresses achètent souvent entre 100 000 et 250 000 dollars d'Ethereum, et elles représentent environ 6% des 10 000 meilleures adresses (soit environ 100 millions de dollars de nouveaux achats ETH au cours des 6 derniers mois). »
@@ -132,9 +133,9 @@ Et les données indiquent que ces gros investisseurs ne semblent pas non plus in
 
 ## III. Enjeux du monitoring de la blockchain
 
-Les baleines semblent capable de manipuler les cours comme le montre cette étude :
+Les baleines semblent capables de manipuler les cours comme le montre cette étude :
 
-Il existe un groupe d'au moins 12 baleines qui semblent manipuler le marché. Voici comment ils procèdent:
+Il existe un groupe d'au moins 12 baleines qui semblent manipuler le marché. Voici comment ils procèdent :
 Premièrement, nous constatons une augmentation des court-circuits en ETH. Il commence généralement sur BitFinex, puis s'étend à BitMex et enfin à d'autres exchanges.
 ces baleines commencent à envoyer des transactions par lots égaux sur quelques jours à BitFinex, Coinbase, Kraken, Bitstamp, Bitflyer
 Ils réalisent un ensemble de petites transactions répétées afin que les systèmes comme WhaleAlerts ne reprennent pas la transaction.
