@@ -8,7 +8,7 @@
 ## 1. Où nous en sommes
 
 Aujourd'hui nous avons un container geth qui tourne avec quelques 3 000 000 de blocks téléchargés. 
-Soit un peu moins du tiers d'ethereum. C'est amplement suffisant pour commencer à faire des tests d'exécution de scripts.
+Soit un peu moins du tiers d'ethereum. C'est amplement suffisant pour commencer à faire des tests d'éxécution de scripts.
 
 L'accès au noeud ethereum se fait via **HTTP** et ce dernier se lance alors avec la commande suivante:
 ```shell script
@@ -31,7 +31,7 @@ est que la vitesse d'exécution de ces 2 méthodes est différente. Voici les 2 
 
 Le but de cette petite étude est de déterminer si l'une est effectivement plus rapide que l'autre en vue du scappring
 de la blockchian Ethereum.  
-On écrit un script python qui réalise plusieurs bloucles, ce qui nous permet de moyenner la vitesse d'exécution des méthodes.  
+On écrit un script python qui réalise plusieurs bloucles, ce qui nous permet de moyenner la vitesse d'éxécution des méthodes.  
 
 
 `speed_comparaison.py`
