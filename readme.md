@@ -6,7 +6,7 @@
 
 ## Présentation du sujet 
 
-Ce répertoire est la vitrine de notre projet d'année qui à été réalisé dans le cadre du PI2 A5 pour l'ESILV. Vous trouverez une partie qui explicite l'avancée du projet et une deuxième qui présente notre solution.
+Ce répertoire est la vitrine de notre projet d'année qui a été réalisé dans le cadre du PI2 A5 pour l'ESILV. Vous trouverez une partie qui explicite l'avancée du projet et une deuxième qui présente notre solution.
 
 ## Évolution du projet
 
