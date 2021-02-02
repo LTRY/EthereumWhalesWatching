@@ -3,8 +3,7 @@
 
 *Au début, nous souhaitions développer une solution totalement dockerisée, c'est à dire faite de conteneurs Docker qui intéragissent entre eux. 
 Au cours du développement, nous avons recontré de nombreuses difficultées quand à la dockerisation du logiciel. 
-Nous avons donc pensé notre rendu final de façon à ce qu'il soit possible d'exécuter ou non certains conteneurs, et donc 
-d'éxéctuer une partie du logiciel en local et l'autre partie sur la machine docker. Conceptualiser de cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une simple facon de faire (éxécuter un `docker-compose.yml`), et la possibilité d'exécuté les composants séparemment.*
+Nous avons donc pensé notre rendu final de façon à ce qu'il soit possible d'exécuter ou non certains conteneurs, et donc d'éxéctuer une partie du logiciel en local et l'autre partie sur la machine docker. Conceptualiser de cette facon, si un potentiel utilisateur venait à utiliser ces scripts, il y aurait une façon simple de faire (éxécuter un `docker-compose.yml`), et la possibilité d'exécuté les composants séparemment.*
 
 
 ## I. Présentation de la solution
@@ -23,7 +22,7 @@ Notre solution finale se consistue de plusieurs fichiers qui permettent l'orches
 ```
 
 - `utils.py`: contient des méthodes pour créer des logs et stocker de grosses variables affin de faciliter la lecture de `producer.py` et de `consumer.py`
-- `producer.py`: effectue des requêtes graphql sur la blockchain et envoie les réponses le plus brute possible au `consumer.py`
+- `producer.py`: effectue des requêtes graphql sur la blockchain et envoie les réponses lse plus brutes possible au `consumer.py`
 - `consumer.py`: traite les réponses des requêtes, les enregistre dans une base de donnée et affiche des logs.
 - `DockerFile`: permet de créer une image python personalisée afin de créer des conteneurs capables d'éxécuter `producer.py` et `consumer.py`
 - `docker-compose.yml`: orchestre les différents conteuneurs entre eux.
@@ -31,7 +30,7 @@ Notre solution finale se consistue de plusieurs fichiers qui permettent l'orches
 ---
 
 `La solution est pensée pour être modulaire`:
-- Le producer et le consumer peuvent être executer dans un conteneur ou bien en locale en fonction des arguments que l'on fournit.
+- Le producer et le consumer peuvent être executer dans un conteneur ou bien en local en fonction des arguments que l'on fournit.
 - Ils peuvent analyser les transactions de la blockchain depuis le debut ou bien reprendre depuis les derniers blocs téléchargés.
 - Le consumer à la possibilité de ne pas interagir avec SQL, de sorte à n'afficher que des logs
 - Le consumer peut prendre des critères de selection pour les transactions qui doivent être traitées. 
@@ -72,13 +71,13 @@ python producer.py --local               # bool: if executed on host or on conta
 ## II. Fonctionnement actuel de la solution
 
 ### ÉTAPES
-- Faire tourner le noeud Geth en locale
+- Faire tourner le noeud Geth en local
 - Monter les conteneurs SQL et Kafka-cluster du docker-compose
 - Executer `producer.py`
 - Executer `consumer.py`
 
 
-## 1. Faire tourner le noeud Geth en locale
+## 1. Faire tourner le noeud Geth en local
 ```shell script
 ~ geth --syncmode full --nousb --cache 1024 --datadir=/Volumes/ETH/.ethereum/.ethereum \
   --ipcpath=~/IPC/geth.ipc --http --http.api eth,web3,personal --graphql --maxpeers 0
@@ -96,7 +95,7 @@ python producer.py --local               # bool: if executed on host or on conta
 ~ python producer.py --local=True --fromFlagBlock=11000000
 ```
 
-## 3. Executer `consumer.py`
+## 4. Executer `consumer.py`
 ```shell script
 ~ cd docker
 ~ source ../../venv/bin/activate
