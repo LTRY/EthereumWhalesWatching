@@ -1,5 +1,5 @@
 
-# 09 . Créer la table Tx qui répertorie les transactions suspectes
+# 09 . Création de la table Tx qui répertorie les transactions suspectes
 
 ### Objectif
 - Créer la table TX
