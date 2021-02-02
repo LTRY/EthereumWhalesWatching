@@ -1,7 +1,7 @@
 # 12 . Apprentissage, Difficultés et perspectives d'évolutions
 
 # Apprentissage
-- résumé de ce que nous avons appris et des compétences que nous avons développé.
+- Résumé de ce que nous avons appris et des compétences que nous avons développé.
 
 # Prespective d'évolution
 - [wait-for-it conteneur](#prespective-dévolution-1)
@@ -20,20 +20,20 @@
 ---
 
 # Apprentissage
-*Ceci un petit résumé de ce que nous avons appris et des compétences que nous avons développé pendant notre PI2.*
+*Ceci est résumé de ce que nous avons appris et des compétences que nous avons développées pendant notre PI2.*
 
-Premièrement, nous avons appris que la synchronisation d'un noeud Ethereum n'était pas aisé que cela pouvait prendre beaucoup de temps. C'est également une très mauvaise idée d'écrire les données de la blockchain sur une disque dur HDD et non SDD en raison de la capacité d'écriture insuffisante de cet dernier.  
+Premièrement, nous avons appris que la synchronisation d'un noeud Ethereum n'était pas aisé et que cela pouvait prendre beaucoup de temps. C'est également une très mauvaise idée d'écrire les données de la blockchain sur une disque dur HDD et non SDD en raison de la capacité d'écriture insuffisante de ce dernier.  
 Nous avons appris qu'il y avait différents protocols pour faire des requêtes sur la blockchain par l'intermédiare du client Geth (IPC, WS, HTTP (dans l'ordre de vitesse d'éxécution)). Ces 3 protocols permettent de faire des requêtes RPC-Json classique. Cependant l'implémentation de graphQL dans la release 1.19 de Geth change la donne puisque cette methode de requêtage est plus rapide mais fonctionne uniquement sur le protocol HTTP. Il y a alors un tradeoff entre une requête GraphQL sur HTTP et RPC-Json sur IPC. Au final, nous avons déterminé que la première méthode est la plus rapide.  
-Nous avons également appris qu'il était très compliqué de faire fonctionner une solution dockerisé sur une machine à faible mémoire vive. Essayer de faire fonctionner des conteneurs en écrivant leurs données sur un HDD pose aussi problème puisque docker ne prend pas en compte nativement la gestion des utilisateurs qui entre en compte lorsqu'un volume externe est branché.
-Un des objetifs du projet était de transformer les données des transactions écritent sur la blockchain dans une table SQL afin de pouvoir faire des requêtes plus facilement dessus. Cependant, nous nous sommes rendu compte par l'expérience que plus une table SQL est grosse plus les requêtes deviennent longue. Sans l'architecture adéquate il devient vite impossible de faire des requêtes.  
-Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse est une baleine ne se limite pas à regarder le montant de leur transaction. Il y a un bon nombre d'adresse qui où bien sont des exchanges, où bien sont des contrats qui sont légitimes à faire de grosses transactions. Si l'on soupconne une addresse d'être une baleine, il faut vérifier l'historique de sa balance et le comparer avec le cours de l'ETH/USD afin de déterminer si oui ou non il y a une correlation entre les deux.
+Nous avons également appris qu'il était très compliqué de faire fonctionner une solution dockerisée sur une machine à faible mémoire vive. Essayer de faire fonctionner des conteneurs en écrivant leurs données sur un HDD pose aussi problème puisque docker ne prend pas en compte nativement la gestion des utilisateurs qui entre en compte lorsqu'un volume externe est branché.
+Un des objetifs du projet était de transformer les données des transactions écritent sur la blockchain dans une table SQL afin de pouvoir faire des requêtes plus facilement dessus. Cependant, nous nous sommes rendu compte par l'expérience que plus une table SQL est grosse plus les requêtes deviennent longue. Sans l'architecture adéquate, il devient vite impossible de faire des requêtes.  
+Enfin nous nous sommes rendu compte que détérminer si telle ou telle adresse est une baleine ne se limite pas à regarder le montant de leur transaction. Il y a un bon nombre d'adresse qui sont des exchanges, ou bien qui sont des contrats légitimes à faire de grosses transactions. Si on soupconne une addresse d'être une baleine, il faut vérifier l'historique de sa balance et le comparer avec le cours de l'ETH/USD afin de déterminer si oui ou non il y a une correlation entre les deux.
 
 
 # Prespective d'évolution
 
 ## Attendre qu'un conteneur soit en état de marche avant d'en lancer un autre.
 
-Dans la situation où un conteneur est dépendant du service managé par un autre conteneur, on peut signifier au docker-compose l'argument `requires` et faire de sorte à ce que ce conteneur attende le démarage d'un autre avant de se lancer. Avec cette argument, on indique que les conteneurs doivent communiquer entre eux et en plus qu'ils doivent attendre que ceux-ci soient bien démarrés avant d'être montés. Le problème c'est qu'un conteuneur peut être considéré comme UP et pourtant le service qu'il orchestre n'est pas encore disponible, pouvant causer une erreure sur d'autres conteuneurs. Pour pallier à ce problème, ou bien on implémente une logique en interne dans le code des conteneurs ou alors on rajoute un script `bash` standardiser par docker: `wait-for-it.sh`
+Dans la situation où un conteneur est dépendant du service managé par un autre conteneur, on peut signifier au docker-compose l'argument `requires` et faire de sorte à ce que ce conteneur attende le démarage d'un autre avant de se lancer. Avec cet argument, on indique que les conteneurs doivent communiquer entre eux et en plus qu'ils doivent attendre que ceux-ci soient bien démarrés avant d'être montés. Le problème c'est qu'un conteuneur peut être considéré comme UP, pourtant le service qu'il orchestre n'est pas encore disponible, pouvant causer une erreur sur d'autres conteuneurs. Pour pallier à ce problème, ou bien on implémente une logique en interne dans le code des conteneurs ou alors on rajoute un script `bash` standardiser par docker: `wait-for-it.sh`
 
 - https://docs.docker.com/compose/startup-order/
 - https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y
@@ -44,7 +44,7 @@ Le heatlthcheck est une bonne pratique à adopter lors de la conception d'archit
 
 ## Remplacer la base de données actuelles utilisé par une de type redis ou noSQL
 
-La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puisque celle-ci implique de pensé à une struture simple mais fixe de notre solution. Il serait posssible de stocker les données de l'application dans un cadre moins relationnel afin d'obtenir une structure plus complexe. Enfin, étant donné qu'un gros défaut de notre aplication soit sa rapidité d'exécution, il serait intéressant d'étudier la possibilité d'implémenter une base de donnée de type clé:valeur à mémoire cache comme redis.   
+La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puisque celle-ci implique de penser à une struture simple mais fixe de notre solution. Il serait posssible de stocker les données de l'application dans un cadre moins relationnel afin d'obtenir une structure plus complexe. Enfin, étant donné qu'un gros défaut de notre application soit son temps d'exécution, il serait intéressant d'étudier la possibilité d'implémenter une base de donnée de type clé:valeur à mémoire cache comme Redis.   
 
 ---
 
@@ -52,7 +52,7 @@ La base de donnée de type SQL offre l'avatange d'être simple d'utlisation puis
 
 ## Enrichir l'image ethereum/client-go de python
 
-L'image du client geth est construite sur l'image de l'OS Alpine. C'est un système d'exploitation très léger qui a l'inconvéniant de n'inclure nativement que très peu de package. Il est posssible d'installer python d'une seule commande sur l'OS, mais certaines libraries installable par `pip` font appellent à d'autres pacakges directement installer sur l'os. De cette facon, les installations des packages pip ne marche pas et l'erreur est quelque peu complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
+L'image du client geth est construite sur l'image de l'OS Alpine. C'est un système d'exploitation très léger qui a l'inconvénient de n'inclure nativement que très peu de package. Il est possible d'installer python d'une seule commande sur l'OS, mais certaines libraries installable par `pip` font appelle à d'autres pacakges directement installer sur l'os. De cette facon, les installations des packages pip ne marchent pas et l'erreur est complexe à déceller. Il s'agit alors de remonter dans les logs, de trouver les outils manquant et de les installer avec la commande `apk add` dans le Dockerfile.
 
 Prblm lors de l'installation de web3 pour python
 ```zsh
@@ -172,17 +172,17 @@ On remarque que notre noeud ne termine pas sa synchronisation, il reste en quelq
 En effet, même avec une très bonne connection à internet, il n'est pas possible de compléter la synchronisation de la blockchain ethereum sur un HDD. Ceci est dû a la limitation d'écriture/lecture du disque.
 
 `explications`:
-- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est la mode de synchronisation que nous avons choisit car c'est le plus rapide.
+- Le mode de synchronisation par défaut de Geth est appelé fast sync. C'est le mode de synchronisation que nous avons choisi car c'est le plus rapide.
 - Au lieu de partir du bloc de genèse et de retraiter toutes les transactions qui se sont produites, la fast sync télécharge les blocs et ne vérifie que la preuve de travail associée. Le téléchargement de tous les blocs est une procédure simple et rapide.
 - Avoir les blocs ne veut pas dire être synchronisé. Puisque aucune transaction n'a été exécutée, nous n'avons donc aucun état de compte disponible (c'est-à-dire soldes, nonces, code de contrat intelligent et données). Ceux-ci doivent être téléchargés séparément et vérifiés avec les derniers blocs. Cette phase s'appelle le `state trie download ` et elle s'exécute en fait en même temps que les téléchargements de blocs.
-- Le `state trie` est un schéma complexe de centaines de millions de preuves cryptographiques. Pour vraiment avoir un nœud synchronisé, toutes les données des `accounts` doivent être téléchargées, ainsi que toutes les preuves cryptographiques pour vérifier que personne sur le réseau n'essaie de tricher. La partie où cela devient encore plus compliqué est que ces données se transforment constamment: à chaque bloc (15s), environ 1000 nœuds sont supprimés de ce trie et environ 2000 nouveaux sont ajoutés. Cela signifie que votre nœud doit synchroniser un ensemble de données qui change 200 fois par seconde. Le pire, c'est que pendant la synchronisation, le réseau avance et l'état que vous avez commencé à télécharger peut disparaître pendant le téléchargement, de sorte que votre nœud doit constamment suivre le réseau tout en essayant de collecter toutes les données récentes. Mais tant que vous n'avez pas collecté toutes les données, votre nœud local n'est pas utilisable car il ne peut rien prouver de manière cryptographique concernant les comptes.
-- Le state trie d'Ethereum contient des centaines de millions de nœuds, dont la plupart prennent la forme d'un seul hash référençant jusqu'à 16 autres hashs. C'est une très mauvaises façon de stocker des données sur un disque, car il n'y a presque pas de structure, juste des nombres aléatoires faisant référence à des nombres encore plus aléatoires. C'est problématique car cela ne permet pas d'optimiser le stockage et la recherche des données de manière significative.
+- Le `state trie` est un schéma complexe de centaines de millions de preuves cryptographiques. Pour vraiment avoir un nœud synchronisé, toutes les données des `accounts` doivent être téléchargées, ainsi que toutes les preuves cryptographiques pour vérifier que personne sur le réseau n'essaie de tricher. Cela devient encore plus compliqué car les données se transforment constamment: à chaque bloc (15s), environ 1000 nœuds sont supprimés de ce trie et environ 2000 nouveaux sont ajoutés. Cela signifie que votre nœud doit synchroniser un ensemble de données qui change 200 fois par seconde. De plus, pendant la synchronisation, le réseau avance et l'état que vous avez commencé à télécharger peut disparaître, de sorte que votre nœud doit constamment suivre le réseau tout en essayant de collecter toutes les données récentes. Mais tant que vous n'avons pas collecté toutes les données, notre nœud local n'est pas utilisable car il ne peut rien prouver de manière cryptographique concernant les comptes.
+- Le state trie d'Ethereum contient des centaines de millions de nœuds, dont la plupart prennent la forme d'un seul hash référençant jusqu'à 16 autres hashs. C'est une très mauvaises façon de stocker des données sur un disque, car il n'y a presque pas de structure, juste des nombres aléatoires faisant référence à des nombres encore plus aléatoires. C'est problématique car cela ne permet pas d'optimiser le stockage et la recherche de données de manière significative.
 
-*En conclusion, notre noeud ethereum restera coincée 60 à 100 blocs dernières la blockchain officielle. Cela ne nous pose pas plus de soucis que ca, cela voudra juste dire que nos analyses en temps réelles sur la blockchain auront un décalage de 10 minutes.*
+*En conclusion, notre noeud ethereum restera coincé 60 à 100 blocs dernières la blockchain officielle. Cela ne nous pose pas plus de soucis que ca, cela voudra juste dire que nos analyses en temps réelles sur la blockchain auront un décalage de 10 minutes.*
 
 
 ## graphql timeout
-On recoit beacoup d'erreur de Timeout parce que les requêtes prennent trop de temps. On peut modifier le parametre timeout dans graphQL mais cela ne resout pas à tout les coup le problème.
+On recoit beacoup d'erreur de Timeout parce que les requêtes prennent trop de temps. On peut modifier le paramètre timeout dans graphQL mais cela ne resout pas toujours le problème.
 graphql issue: https://medium.com/workflowgen/graphql-query-timeout-and-complexity-management-fab4d7315d8d
 
 
@@ -368,7 +368,7 @@ zsh: pipe failed: too many open files in system
 
 
 ### Mysql brutal shutdown
-Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser parfois des problèmes. C'est le cas de mysql, lorsque cela arrive certain fichier deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
+Il arrive parfois que les conteneurs se détruisent brusquement et cela peux poser des problèmes. C'est le cas de mysql, lorsque cela arrive certains fichiers deviennent corrompus et lors de la réinstallation du conteneur, la base de donnée ne peut plus être lu. 
 Gracefully Stopping Docker Containers: https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 
 Autres issues rencontrées avec Mysql:
