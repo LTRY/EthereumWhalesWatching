@@ -9,7 +9,7 @@
 
 ## 0. Jusqu'ici
 
-Nous connaissons le nombre de transations dans la blockchain car nous avons récupérer ces informations dans la partie précédente. 
+Nous connaissons le nombre de transactions dans la blockchain car nous avons récupérer ces informations dans la partie précédente. 
 ```shell script
 ~ mysql -uroot -p
 mysql> use ETH;
@@ -21,7 +21,7 @@ mysql> SELECT SUM(transactionCount) FROM block_info;
 +-----------------------+
 1 row in set (3,70 sec)
 ```
-Il y'a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste raisonable de récupérer la totalité de ces informations dans une table sql. Pour rappel, le but est de transférer les données de la blockchain à une base de donnée SQL, tout en perdant le moins d'informations possibles. SQL étant bien plus rapide pour effectuer des opérations sur des données. 
+Il y'a un peu moins d'un milliard de transactions sur ethereum , nous pensons qu'il reste raisonnable de récupérer la totalité de ces informations dans une table sql. Pour rappel, le but est de transférer les données de la blockchain à une base de donnée SQL, tout en perdant le moins d'informations possibles. SQL étant bien plus rapide pour effectuer des opérations sur des données. 
 Cependant, nous n'insérons pas les transactions d'une valeur de "0x0"...
 
 `Etapes`:  
