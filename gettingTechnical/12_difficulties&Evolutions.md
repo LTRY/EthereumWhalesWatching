@@ -1,7 +1,7 @@
-# 12 . Apprentissage, Difficultés et perspectives d'évolutions
+# 12 . Apprentissage, difficultés et perspectives d'évolutions
 
 # Apprentissage
-- Résumé de ce que nous avons appris et des compétences que nous avons développé.
+- Résumé de ce que nous avons appris et des compétences que nous avons développées.
 
 # Perspectives d'évolutions
 - [wait-for-it conteneur](#prespective-dévolution-1)
