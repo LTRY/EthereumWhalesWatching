@@ -2,9 +2,9 @@
 
 Il y a de fortes chances que vous ayez entendu parler d'Ethereum, que vous sachiez ou non de quoi il s'agit. Il apparait beaucoup dans les médias ces derniers temps, y compris sur la couverture de quelques grands magazines. Alors de quoi s'agit-il? Essentiellement, c'est une base de données publique qui conserve un enregistrement permanent des transactions numériques. Cette base de données ne nécessite aucune autorité centrale pour la maintenir et la sécuriser. Au lieu de cela, il fonctionne comme un système transactionnel «sans confiance» - un cadre dans lequel les individus peuvent effectuer des transactions peer-to-peer sans avoir besoin de se faire confiance ou entre eux.
 
-De plus, Ethereum permet d’exécuter des *smart-contracts* (contrats intelligents). Ce sont des applications qui ne présentent que très peu voir aucune possibilité de censure, de fraude, d'intervention de tiers ou de temps d'arrêt. Comme Bitcoin, Ethereum est un projet open-source  qui n’est pas détenu ou exploité par une seule personne. Cela signifie que tout le monde peut voir le code et en comprendre le fonctionnement. Une différence ici est que Vitalik Buterin est toujours un membre actif de la communauté Ethereum tandis que Satoshi Nakamoto de Bitcoin demeure un mystérieux inconnu (et le restera sans doute). Ainsi Ethereum a toujours une certaine forme de leadership idéologique ou philosophique.
+De plus, Ethereum permet d’exécuter des *smart-contracts* (contrats intelligents). Ce sont des applications qui ne présentent que très peu voire aucune possibilité de censure, de fraude, d'intervention de tiers ou de temps d'arrêt. Comme Bitcoin, Ethereum est un projet open-source  qui n’est pas détenu ou exploité par une seule personne. Cela signifie que tout le monde peut voir le code et en comprendre le fonctionnement. Une différence ici est que Vitalik Buterin est toujours un membre actif de la communauté Ethereum tandis que Satoshi Nakamoto, le créateur de Bitcoin demeure un mystérieux inconnu (et le restera sans doute). Ainsi Ethereum a toujours une certaine forme de leadership idéologique ou philosophique.
 
-On peut maintenant constaté l'arrivé de baleines sur ethereum, en effet elles possèdent 41% d'éther et sont responsables de gros mouvements de marché. L'atrait On peut identifier les portefeuilles associés à des acteurs majeurs tels que JPMorgan Chase, Reddit, IBM, Microsoft, Amazon et Walmart. 100% de ces portefeuilles accumulent de l'ETH. On ne sait pas à quelle fin, mais une chose est claire, ils accumulent de plus en plus d'Eth.
+On peut maintenant constater l'arrivée de baleines sur ethereum, en effet elles possèdent 41% d'éther et sont responsables de gros mouvements de marché. On peut identifier les portefeuilles associés à des acteurs majeurs tels que JPMorgan Chase, Reddit, IBM, Microsoft, Amazon et Walmart. 100% de ces portefeuilles accumulent de l'ETH. On ne sait pas à quelle fin, mais une chose est claire, ils accumulent de plus en plus d'Eth.
 
 ## Sommaire
 - I. [Introduction à la DeFi](#i-introduction-à-la-defi)
@@ -17,7 +17,7 @@ On peut maintenant constaté l'arrivé de baleines sur ethereum, en effet elles 
 
 #### Qu'est-ce que la DeFi?
 
-La DeFi est l'ensemble des applications de services financiers qui se base sur des technologies décentralisées comme la blockchain. Les projets DeFi visent à fournir des services financiers sans avoir recours à une tierce personne ou à une instution dite centralisée.
+La DeFi est l'ensemble des applications de services financiers qui se base sur des technologies décentralisées comme la blockchain. Les projets DeFi visent à fournir des services financiers sans avoir recours à une tierce personne ou à une institution dite centralisée.
 
 #### Comment mesurer le succès de la DeFi?
 Le succès d'un projet de la DeFi est souvent évalué par sa Total Value Locked (TVL) - Valeur Totale Verrouillée - en $.
@@ -32,7 +32,7 @@ En effet, seuls 3,85% des ethers (ETH) et 0,18% des bitcoins (BTC) sont verrouil
 En revanche, pour certains stablecoins, la DeFi s'est rapidement imposée. Près de 29% de l'USDC et 62% du TUSD seraient verrouillés dans des protocoles.
 L'Ether reste sans surprise la cryptomonnaie la plus populaire dans l'écosystème de la DeFi, représentant 50% de la valeur verrouillée, alors que le BTC par l'intermédiaire du Wrapped Bitcoin (WBTC), token ERC-20 Bitcoin ne représente que 10%.
 À eux tous, les stablecoins représentent 33% de la valeur totale verrouillée et le reste est constitué d'autres tokens ERC-20 tels que le Basic Attention Token (BAT) et l'Augur (REP).
-Nombreux sont ceux qui voient déjà en la DeFi le futur de la finance. Toutefois, le secteur en est encore au stade embryonnaire et fait face à de sérieux problèmes de sécurité depuis sa démocratisation.Cela rappelle particulièrement l'explosion des ICOs en 2017, et conduit à des projets lancés dans la précipitation tels que Yam.Finance, un protocole ayant perdu 99% de sa valeur en quelques heures la semaine dernière.
+Nombreux sont ceux qui voient déjà en la DeFi le futur de la finance. Toutefois, le secteur en est encore au stade embryonnaire et fait face à de sérieux problèmes de sécurité depuis sa démocratisation. Cela rappelle particulièrement l'explosion des ICOs en 2017, et conduit à des projets lancés dans la précipitation tels que Yam.Finance, un protocole ayant perdu 99% de sa valeur en quelques heures la semaine dernière.
 Cela ne remet en aucun cas en cause la croissance de l'écosystème de la DeFi. Quel que soit le véritable market cap de ce secteur, rien ne peut remettre en question que ce dernier croît à une vitesse ahurissante.
 
 Pourquoi 96% des applications de la DeFi sont écrites sur la blokchain Ethereum ?
@@ -59,7 +59,7 @@ Août 2020 : Huobi DeFi Labs, initiative de l’exchange singapourien Huobi, cr�
 
 Septembre 2020: 10 nouveaux membres ont rejoint le consortium DeFi : Curve, Aave, Synthetix, Loopring, Zapper, Zerion, Bitpie, Mykey et CoinGecko.
 
-La Global DeFi Alliance vise à promouvoir la collaboration au sein d’un écosystème encore très nouveau et particulièrement hétéroclite. Plus précisément, il s’agit de rapprocher l’Orient de l’Occident, selon Sharlyn Wu, le responsable de l’investissement chez Huobi:
+La Global DeFi Alliance vise à promouvoir la collaboration au sein d’un écosystème encore très jeune et particulièrement hétéroclite. Plus précisément, il s’agit de rapprocher l’Orient de l’Occident, selon Sharlyn Wu, le responsable de l’investissement chez Huobi:
 
 *« Nous ressentons fortement l’isolement entre les exchanges centralisés, les institutions financières et la communauté globale, et nous voulons combler ce gouffre. Nous ressentons aussi les grandes différences culturelles entre l’Est et l’Ouest, et nous pensons qu’il en va de notre responsabilité de rassembler la communauté. »*
 
